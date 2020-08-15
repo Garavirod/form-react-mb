@@ -11,6 +11,8 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormLabel from "@material-ui/core/FormLabel";
 import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 import {
   KeyboardTimePicker,
@@ -192,7 +194,7 @@ export default function Desincorporacion() {
             </MuiPickersUtilsProvider>
           </FormControl>
         </Grid>
-        <Grid item lg={8}>
+        <Grid item lg={6}>
           {/* OBSERVACIONES */}
           <FormControl fullWidth className={classes.root}>
             <TextField
