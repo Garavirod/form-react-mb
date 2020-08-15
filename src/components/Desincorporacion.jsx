@@ -124,16 +124,15 @@ export default function Desincorporacion() {
             <InputLabel id="demo-mutiple-name-label">{tag.tagName}</InputLabel>
             <Select
               labelId="demo-mutiple-name-label"
-              id="demo-mutiple-name"
-              multiple
+              id="demo-mutiple-name"              
               value={personName}
               onChange={handleChange}
               input={<Input />}
               MenuProps={MenuProps}
             >
-              {tag.data.map((d) => (
-                <MenuItem key={d} value={d}>
-                  {d}
+              {tag.data.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
                 </MenuItem>
               ))}
             </Select>

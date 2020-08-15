@@ -97,7 +97,7 @@ export default function Formulario() {
               <Tab label="Incorporaciones" {...a11yProps(1)} />
             </Tabs>
           </AppBar>
-          <form noValidate autoComplete="off">
+          <form  autoComplete="off">
             <Card>
               <CardContent>
                 <TabPanel value={value} index={0}>

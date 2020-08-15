@@ -39,14 +39,14 @@ const useStyles = makeStyles((theme) => ({
 
 // Lineas
 const lineas = [
-    "Linea 1",
-    "Linea 2",
-    "Linea 3",
-    "Linea 4",
-    "Linea 5",
-    "Linea 6",
-    "Linea 7",
-  ];
+  "Linea 1",
+  "Linea 2",
+  "Linea 3",
+  "Linea 4",
+  "Linea 5",
+  "Linea 6",
+  "Linea 7",
+];
 
 // Recorrido
 const spinerInputs = [
@@ -84,8 +84,6 @@ const folios = [
   "Virginia Andrews",
   "Kelly Snyder",
 ];
-
-
 
 const selectInputsTag = [
   { tagName: "Informa", data: folios },
@@ -151,58 +149,68 @@ export default function Desincorporacion() {
           </FormControl>
         ))}
       </Grid>
-      <Grid item lg={4}>
-        {/* ODÓMETRO */}
-        <FormControl className={classes.formControl}>
-          <TextField id="standard-required" label="Odómetro" />
-        </FormControl>
-      </Grid>
-      <Grid item lg={4}>
-        {/* CREDENCIAL */}
-        <FormControl className={classes.formControl}>
-          <TextField id="standard-required" label="Credencial" />
-        </FormControl>
-      </Grid>
-      <Grid item lg={4}>
-        {/* NOMBRE */}
-        <FormControl className={classes.formControl}>
-          <TextField id="standard-required" label="Nombre" />
-        </FormControl>
-      </Grid>
-      <Grid item lg={6}>
-        {/* FECHA */}
-        <FormControl className={classes.formControl}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              margin="normal"
-              id="date-picker-dialog"
-              label="Fecha"
-              format="MM/dd/yyyy"
-              value={selectedDate}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-          </MuiPickersUtilsProvider>
-        </FormControl>
-      </Grid>
-      <Grid item lg={6}>
-        {/* HORA */}
-        <FormControl className={classes.formControl}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardTimePicker
-              margin="normal"
-              id="time-picker"
-              label="Hora"
-              value={selectedDate}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change time",
-              }}
-            />
-          </MuiPickersUtilsProvider>
-        </FormControl>
+      <Grid container spacing={3}>
+        <Grid item lg={6}>
+          <Grid conainer spacing={3}>
+            <Grid item lg={12}>
+              {/* ODÓMETRO */}
+              <FormControl className={classes.formControl}>
+                <TextField id="standard-required" label="Odómetro" />
+              </FormControl>
+            </Grid>
+            <Grid item lg={12}>
+              {/* CREDENCIAL */}
+              <FormControl className={classes.formControl}>
+                <TextField id="standard-required" label="Credencial" />
+              </FormControl>
+            </Grid>
+            <Grid item lg={12}>
+              {/* NOMBRE */}
+              <FormControl className={classes.formControl}>
+                <TextField id="standard-required" label="Nombre" />
+              </FormControl>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item lg={6}>
+          <Grid conainer spacing={3}>
+            <Grid item lg={12}>
+              {/* FECHA */}
+              <FormControl className={classes.formControl}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    margin="normal"
+                    id="date-picker-dialog"
+                    label="Fecha"
+                    format="MM/dd/yyyy"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    KeyboardButtonProps={{
+                      "aria-label": "change date",
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </FormControl>
+            </Grid>
+            <Grid item lg={12}>
+              {/* HORA */}
+              <FormControl className={classes.formControl}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardTimePicker
+                    margin="normal"
+                    id="time-picker"
+                    label="Hora"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    KeyboardButtonProps={{
+                      "aria-label": "change time",
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item lg={12}>
         <Paper className={classes.paper} elevation={3} variant="outlined">
