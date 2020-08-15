@@ -14,6 +14,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 // Components
 import Desincorporacion from "./Desincorporacion";
+import Incorporacion from './Incorporacion';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -103,7 +104,7 @@ export default function Formulario() {
                   <Desincorporacion />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                  Incorporaciones
+                  <Incorporacion/>
                 </TabPanel>
               </CardContent>
               <CardActions>                
