@@ -25,20 +25,21 @@ const useStyles = makeStyles({
 
 export default function Referencia() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+ 
 
   return (
     <Grid container spacing={3}>
       <Grid item lg={12}>
         <Card className={classes.root}>
           <CardContent>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
-              Word of the Day
-            </Typography>
+            <Grid container spacing={3}>
+              <Grid item lg={6}>
+                  <h1>Hola</h1>
+              </Grid>
+              <Grid item lg={6}>
+                  <h2>Adios</h2>
+              </Grid>
+            </Grid>
           </CardContent>
         </Card>
       </Grid>
