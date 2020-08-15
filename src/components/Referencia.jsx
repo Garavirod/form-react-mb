@@ -1,7 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -12,7 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 
 const rutas = [
   "Linea 1",
@@ -32,7 +30,7 @@ const selectInputs = [
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
-    padding:10
+    padding: 10,
   },
   bullet: {
     display: "inline-block",
@@ -83,79 +81,69 @@ export default function Referencia() {
 
   return (
     <Grid container spacing={3}>
-      <Grid item lg={12}>
-        <Card className={classes.root}>
-          <Typography variant="h6" component="h4">
-            Referencia
-          </Typography>
-          <CardContent>
-            <Grid container spacing={3}>
-              <Grid item lg={6}>
-                <div className={classes.divTree} style={{ overflow: "scroll" }}>
-                  <TreeView
-                    className={classes.viewRoot}
-                    defaultCollapseIcon={<ExpandMoreIcon />}
-                    defaultExpandIcon={<ChevronRightIcon />}
-                  >
-                    <TreeItem nodeId="1" label="Applications">
-                      <TreeItem nodeId="2" label="Calendar" />
-                      <TreeItem nodeId="3" label="Chrome" />
-                      <TreeItem nodeId="4" label="Webstorm" />
-                      <TreeItem nodeId="2" label="Calendar" />
-                      <TreeItem nodeId="3" label="Chrome" />
-                      <TreeItem nodeId="4" label="Webstorm" />
-                      <TreeItem nodeId="2" label="Calendar" />
-                      <TreeItem nodeId="3" label="Chrome" />
-                      <TreeItem nodeId="4" label="Webstorm" />
-                      <TreeItem nodeId="2" label="Calendar" />
-                      <TreeItem nodeId="3" label="Chrome" />
-                      <TreeItem nodeId="4" label="Webstorm" />
-                      <TreeItem nodeId="2" label="Calendar" />
-                      <TreeItem nodeId="3" label="Chrome" />
-                      <TreeItem nodeId="4" label="Webstorm" />
+      <Grid item lg={12}>        
+        <Grid container spacing={3}>
+          <Grid item lg={6}>
+            <div className={classes.divTree} style={{ overflow: "scroll" }}>
+              <TreeView
+                className={classes.viewRoot}
+                defaultCollapseIcon={<ExpandMoreIcon />}
+                defaultExpandIcon={<ChevronRightIcon />}
+              >
+                <TreeItem nodeId="1" label="Applications">
+                  <TreeItem nodeId="2" label="Calendar" />
+                  <TreeItem nodeId="3" label="Chrome" />
+                  <TreeItem nodeId="4" label="Webstorm" />
+                  <TreeItem nodeId="2" label="Calendar" />
+                  <TreeItem nodeId="3" label="Chrome" />
+                  <TreeItem nodeId="4" label="Webstorm" />
+                  <TreeItem nodeId="2" label="Calendar" />
+                  <TreeItem nodeId="3" label="Chrome" />
+                  <TreeItem nodeId="4" label="Webstorm" />
+                  <TreeItem nodeId="2" label="Calendar" />
+                  <TreeItem nodeId="3" label="Chrome" />
+                  <TreeItem nodeId="4" label="Webstorm" />
+                  <TreeItem nodeId="2" label="Calendar" />
+                  <TreeItem nodeId="3" label="Chrome" />
+                  <TreeItem nodeId="4" label="Webstorm" />
+                </TreeItem>
+                <TreeItem nodeId="5" label="Documents">
+                  <TreeItem nodeId="10" label="OSS" />
+                  <TreeItem nodeId="6" label="Material-UI">
+                    <TreeItem nodeId="7" label="src">
+                      <TreeItem nodeId="8" label="index.js" />
+                      <TreeItem nodeId="9" label="tree-view.js" />
                     </TreeItem>
-                    <TreeItem nodeId="5" label="Documents">
-                      <TreeItem nodeId="10" label="OSS" />
-                      <TreeItem nodeId="6" label="Material-UI">
-                        <TreeItem nodeId="7" label="src">
-                          <TreeItem nodeId="8" label="index.js" />
-                          <TreeItem nodeId="9" label="tree-view.js" />
-                        </TreeItem>
-                      </TreeItem>
-                    </TreeItem>
-                  </TreeView>
-                </div>
-              </Grid>
-              {selectInputs.map((tag) => (
-                <Grid item lg={3}>
-                  <FormControl
-                    key={tag.tagname}
-                    className={classes.formControl}
-                  >
-                    <InputLabel id="demo-mutiple-name-label">
-                      {tag.tagname}
-                    </InputLabel>
-                    <Select
-                      labelId="demo-mutiple-name-label"
-                      id="demo-mutiple-name"
-                      multiple
-                      value={personName}
-                      onChange={handleChange}
-                      input={<Input />}
-                      MenuProps={MenuProps}
-                    >
-                      {tag.data.map((d) => (
-                        <MenuItem key={d} value={d}>
-                          {d}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-              ))}
+                  </TreeItem>
+                </TreeItem>
+              </TreeView>
+            </div>
+          </Grid>
+          {selectInputs.map((tag) => (
+            <Grid item lg={3}>
+              <FormControl key={tag.tagname} className={classes.formControl}>
+                <InputLabel id="demo-mutiple-name-label">
+                  {tag.tagname}
+                </InputLabel>
+                <Select
+                  labelId="demo-mutiple-name-label"
+                  id="demo-mutiple-name"
+                  multiple
+                  value={personName}
+                  onChange={handleChange}
+                  input={<Input />}
+                  MenuProps={MenuProps}
+                >
+                  {tag.data.map((d) => (
+                    <MenuItem key={d} value={d}>
+                      {d}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Grid>
-          </CardContent>
-        </Card>
+          ))}
+        </Grid>
       </Grid>
     </Grid>
   );
