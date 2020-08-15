@@ -5,19 +5,21 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
+
 // Compoents
-import Incorporaciones from '../components/Incorporacion';
+import Desincorporacion from './Desincorporacion';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     margin: "20px",
-    background: "gold",
-    height:'100vh'
+    // background: "lime",
+    height:'100vh',
+    
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    // textAlign: "center",
     color: theme.palette.text.secondary,
   },
 
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Form = () => {
   const classes = useStyles();
+
 
   return (
     
@@ -41,18 +44,21 @@ const Form = () => {
               component="h2"
               className={classes.headerText}
             >
-              Incorporaciones y Desincorporaciones
+              Desincorporaciones e Incorporaciones
             </Typography>            
           </Grid>
-          <Grid item lg={6}>
+          <Grid item lg={12}>
             <Paper className={classes.paper}>
               <Typography variant="h6" component="h4">
                 Desincorporacion / Entrada
               </Typography>
+              <Desincorporacion/>
+              <Typography variant="h6" component="h4">
+                Referencia
+              </Typography>
             </Paper>
-            <Incorporaciones/>
           </Grid>
-          <Grid item lg={6}>
+          <Grid item lg={12}>
             <Paper className={classes.paper}>
               <Typography variant="h6" component="h4">
                 Incorporación / Salida
