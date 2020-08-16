@@ -78,36 +78,53 @@ const lineas = [
 ];
 
 const selectInputsTag = [
-  { tagName: "Folio", data: folios },
-  { tagName: "Linea", data: lineas },
-  { tagName: "Solicita", data: folios },
-  { tagName: "Informa", data: folios },
-  { tagName: "Estacion", data: folios },
-  { tagName: "Sentido", data: folios },
-  { tagName: "Económico", data: folios },
-  { tagName: "Empresa", data: folios },
-  { tagName: "Motivo", data: folios },
+  { tagName: "Folio", data: folios, modelName:'folio' },
+  { tagName: "Linea", data: lineas, modelName:'linea' },
+  { tagName: "Solicita", data: folios, modelName:'solicita' },
+  { tagName: "Informa", data: folios, modelName:'informa' },
+  { tagName: "Estacion", data: folios, modelName:'estacion' },
+  { tagName: "Sentido", data: folios, modelName:'sentido' },
+  { tagName: "Económico", data: folios, modelName:'economico' },
+  { tagName: "Empresa", data: folios, modelName:'empresa' },
+  { tagName: "Motivo", data: folios, modelName:'motivo' },
 ];
 
-export default function Desincorporacion() {
+export default function Desincorporacion(props) {
+
+  const getAllData = ()=>{
+    props.getDataYes("hola nene!!");
+  };
   const classes = useStyles();
-  const handleChange = (event) => {
-    event.preventDefault();
-    setPersonName(event.target.value);
-  };
+  const [dataRegistroIncor, setDataRegistroIncor] = useState({
+    folio :'',
+    linea :'',
+    solicita:'',
+    informa:'',
+    estacion:'',
+    economico:'',
+    empresa:'',
+    motivo:'',
+    odometro:'',
+    credencial:'',
+    nombre:'',
+    fecha:new Date(),
+    hora:'',
+    jornada:'',
+    observaciones:'',
+    tipo:'',
+    edoFolio:'',
+    tree:'',
+    ida:'',
+    regreso:''
+  });
 
-  const changeRadio = (e) => {
-    setValue(e.target.value);
-  };
+  const dataInputsChange = (event)=>{
+    setDataRegistroIncor({
+      ...dataRegistroIncor,
+      [event.target.name]:event.target.value,
+    });
+  }
 
-  const changeRadioFolio = (e) => {
-    setValue2(e.target.value);
-  };
-
-  const [selectedDate, handleDateChange] = useState(new Date());
-  const [personName, setPersonName] = React.useState([]);
-  const [value, setValue] = React.useState([]);
-  const [value2, setValue2] = React.useState([]);
   return (
     <Grid container spacing={3}>
       <Grid item lg={12}>
@@ -125,10 +142,11 @@ export default function Desincorporacion() {
             <Select
               labelId="demo-mutiple-name-label"
               id="demo-mutiple-name"              
-              value={personName}
-              onChange={handleChange}
+              // value={personName}
+              onChange={getAllData}
               input={<Input />}
               MenuProps={MenuProps}
+              name={tag.modelName}
             >
               {tag.data.map((option) => (
                 <MenuItem key={option} value={option}>
@@ -142,19 +160,19 @@ export default function Desincorporacion() {
       <Grid item lg={4}>
         {/* ODÓMETRO */}
         <FormControl className={classes.formControl}>
-          <TextField id="standard-required" label="Odómetro" />
+          <TextField id="standard-required" label="Odómetro" name="odometro" onChange={dataInputsChange}/>
         </FormControl>
       </Grid>
       <Grid item lg={4}>
         {/* CREDENCIAL */}
         <FormControl className={classes.formControl}>
-          <TextField id="standard-required" label="Credencial" />
+          <TextField id="standard-required" label="Credencial" name="credencial" onChange={dataInputsChange} />
         </FormControl>
       </Grid>
       <Grid item lg={4}>
         {/* NOMBRE */}
         <FormControl className={classes.formControl}>
-          <TextField id="standard-required" label="Nombre" />
+          <TextField id="standard-required" label="Nombre" name="nombre" onChange={dataInputsChange}/>
         </FormControl>
       </Grid>
       <Grid item lg={4}>
@@ -166,8 +184,9 @@ export default function Desincorporacion() {
               id="date-picker-dialog"
               label="Fecha"
               format="MM/dd/yyyy"
-              value={selectedDate}
-              onChange={handleDateChange}
+              name="fecha"
+              // value={selectedDate}
+              onChange={dataInputsChange}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
@@ -183,8 +202,9 @@ export default function Desincorporacion() {
               margin="normal"
               id="time-picker"
               label="Hora"
-              value={selectedDate}
-              onChange={handleDateChange}
+              name="hora"
+              // value={selectedDate}
+              onChange={dataInputsChange}
               KeyboardButtonProps={{
                 "aria-label": "change time",
               }}
@@ -198,10 +218,11 @@ export default function Desincorporacion() {
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
               margin="normal"
+              name="jornada"
               id="time-picker"
               label="Jornada"
-              value={selectedDate}
-              onChange={handleDateChange}
+              // value={selectedDate}
+              onChange={dataInputsChange}
               KeyboardButtonProps={{
                 "aria-label": "change time",
               }}
@@ -214,12 +235,14 @@ export default function Desincorporacion() {
         <FormControl fullWidth className={classes.root}>
           <TextField
             id="outlined-multiline-static"
+            onChange={dataInputsChange}
             label="Observaciones"
             multiline
             rows={3}
             variant="outlined"
             fullWidth
             margin="normal"
+            name="observaciones"
             InputLabelProps={{
               shrink: true,
             }}
@@ -230,7 +253,7 @@ export default function Desincorporacion() {
         {/* TIPO DESINCO*/}
         <FormControl className={classes.formControl}>
           <FormLabel>Tipo</FormLabel>
-          <RadioGroup aria-label="gender" value={value} onChange={changeRadio}>
+          <RadioGroup aria-label="gender" onChange={dataInputsChange} name="tipo">
             <FormControlLabel
               value="Incumplido"
               control={<Radio />}
@@ -251,8 +274,9 @@ export default function Desincorporacion() {
           <FormLabel>Estado de foilo</FormLabel>
           <RadioGroup
             aria-label="gender"
-            value={value2}
-            onChange={changeRadioFolio}
+            // value={value2}
+            onChange={dataInputsChange}
+            name="edoFolio"
           >
             <FormControlLabel
               value="Abierto"

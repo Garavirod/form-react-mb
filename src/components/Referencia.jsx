@@ -10,7 +10,6 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
-// import Typography from "@material-ui/core/Typography";
 
 const rutas = [
   "Linea 1",

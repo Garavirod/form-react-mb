@@ -74,6 +74,11 @@ export default function Formulario() {
     setValue(newValue);
   };
 
+  const superData=(dato)=>{
+    console.log(dato);
+    
+  };
+
   return (
     <Container maxWidth="lg" className={classes.root}>
       <Grid container spacing={3}>
@@ -97,11 +102,11 @@ export default function Formulario() {
               <Tab label="Incorporaciones" {...a11yProps(1)} />
             </Tabs>
           </AppBar>
-          <form  autoComplete="off">
+          <form>
             <Card>
               <CardContent>
                 <TabPanel value={value} index={0}>
-                  <Desincorporacion />
+                  <Desincorporacion getDataYes={superData}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                   <Incorporacion/>
