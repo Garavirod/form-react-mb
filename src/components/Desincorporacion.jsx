@@ -114,12 +114,31 @@ export default function Desincorporacion(props) {
     regreso: "",
   });
 
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [selectedFecha, setSelectedFecha] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [selectedHora, setSelectedHora] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [selectedJornada, setSelectedJornada] = React.useState(new Date('2014-08-18T21:11:54'));
 
-  const handleDateChange = (event,date) => {
-    console.log("NUEVO TARGET ",event.target);
-    setSelectedDate(date);
-    
+  const handleFechaChange = (date) => {
+    console.log("FECHA");
+    dataDesincorporacion.fecha = date; 
+    setSelectedFecha(date);   
+    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
+
+  };
+
+  const handleHoraChange = (date) => {
+    console.log("HORA");
+    dataDesincorporacion.hora = date; 
+    setSelectedHora(date);    
+    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
+
+  };
+
+  const handleJornadaChange = (date) => {
+    console.log("JORNADA");
+    dataDesincorporacion.jornada = date; 
+    setSelectedJornada(date);
+    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
 
   };
 
@@ -143,8 +162,7 @@ export default function Desincorporacion(props) {
         {selectInputsTag.map((tag) => (
           <FormControl key={tag.tagName} className={classes.formControl}>
             <InputLabel>{tag.tagName}</InputLabel>
-            <Select
-              labelId="demo-mutiple-name-label"
+            <Select              
               id="demo-mutiple-name"              
               defaultValue=""
               input={<Input/>}
@@ -202,10 +220,9 @@ export default function Desincorporacion(props) {
               margin="normal"
               id="date-picker-dialog"
               label="Fecha"
-              format="MM/dd/yyyy"
-              name="fecha"
-              value=""
-              onChange={handleDateChange}
+              format="MM/dd/yyyy"              
+              value={selectedFecha}
+              onChange={handleFechaChange}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
@@ -220,10 +237,9 @@ export default function Desincorporacion(props) {
             <KeyboardTimePicker
               margin="normal"
               id="time-picker"
-              label="Hora"
-              // name="hora"
-              value={selectedDate}
-              onChange={handleDateChange}
+              label="Hora"              
+              value={selectedHora}
+              onChange={handleHoraChange}
               KeyboardButtonProps={{
                 "aria-label": "change time",
               }}
@@ -236,12 +252,11 @@ export default function Desincorporacion(props) {
         <FormControl className={classes.formControl}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
-              margin="normal"
-              // name="jornada"
+              margin="normal"              
               id="time-picker"
               label="Jornada"
-              value={selectedDate}
-              onChange={handleDateChange}
+              value={selectedJornada}
+              onChange={handleJornadaChange}
               KeyboardButtonProps={{
                 "aria-label": "change time",
               }}
