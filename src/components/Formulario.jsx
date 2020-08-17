@@ -14,7 +14,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 // Components
 import Desincorporacion from "./Desincorporacion";
-import Incorporacion from './Incorporacion';
+import Incorporacion from "./Incorporacion";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -69,16 +69,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Formulario() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  
   const handleChange = (event, newValue) => {
+    event.preventDefault();
     setValue(newValue);
   };
 
-  const superData=(props)=>{
-    console.log("Desde el padre");
-    
-    console.log(props);
-    
+  const superData = (props) => {
+    console.log("Desde el padre ",props);
   };
 
   return (
@@ -108,16 +106,22 @@ export default function Formulario() {
             <Card>
               <CardContent>
                 <TabPanel value={value} index={0}>
-                  <Desincorporacion getDataYes={superData}/>
+                  <Desincorporacion getDataRegistro={superData} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                  <Incorporacion/>
+                  <Incorporacion />
                 </TabPanel>
               </CardContent>
-              <CardActions>                
-                <Button size="small" variant="contained" color="primary">Guardar</Button>
-                <Button size="small" variant="contained" color="primary">Cancelar</Button>
-                <Button size="small" variant="contained" color="primary">Nuevo folio</Button>
+              <CardActions>
+                <Button size="small" variant="contained" color="primary">
+                  Guardar
+                </Button>
+                <Button size="small" variant="contained" color="primary">
+                  Cancelar
+                </Button>
+                <Button size="small" variant="contained" color="primary">
+                  Nuevo folio
+                </Button>
               </CardActions>
             </Card>
           </form>

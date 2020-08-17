@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React,{useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -90,11 +90,8 @@ const selectInputsTag = [
 ];
 
 export default function Desincorporacion(props) {
-  const getAllData = () => {
-    props.getDataYes(dataRegistroIncor); //Esto se manda al padre
-  };
-  const classes = useStyles();
-  const [dataRegistroIncor, setDataRegistroIncor] = useState({
+  
+  const [dataDesincorporacion] = useState({
     folio: "",
     linea: "",
     solicita: "",
@@ -106,7 +103,7 @@ export default function Desincorporacion(props) {
     odometro: "",
     credencial: "",
     nombre: "",
-    fecha: new Date(),
+    fecha: "",
     hora: "",
     jornada: "",
     observaciones: "",
@@ -117,14 +114,19 @@ export default function Desincorporacion(props) {
     regreso: "",
   });
 
+  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+
+  const handleDateChange = (event,date) => {
+    console.log("NUEVO TARGET ",event.target);
+    setSelectedDate(date);
+    
+
+  };
+
+  const classes = useStyles();    
   const dataInputsChange = (event) => {
-    console.log(event.target.value + " con name " + event.target.name);
-    setDataRegistroIncor({
-      ...dataRegistroIncor,
-      [event.target.name]: event.target.value,
-    });
-    // console.log(dataRegistroIncor);
-    getAllData();
+    dataDesincorporacion[event.target.name] = event.target.value;       
+    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
   };
 
   return (
@@ -140,12 +142,13 @@ export default function Desincorporacion(props) {
         {/* SELECTS INPUTS */}
         {selectInputsTag.map((tag) => (
           <FormControl key={tag.tagName} className={classes.formControl}>
-            <InputLabel id="demo-mutiple-name-label">{tag.tagName}</InputLabel>
+            <InputLabel>{tag.tagName}</InputLabel>
             <Select
               labelId="demo-mutiple-name-label"
               id="demo-mutiple-name"              
-              defaultValue={dataRegistroIncor[tag.modelName]}
-              input={<Input onChange={dataInputsChange} />}
+              defaultValue=""
+              input={<Input/>}
+              onChange={dataInputsChange}
               MenuProps={MenuProps}
               name={tag.modelName}
             >
@@ -201,8 +204,8 @@ export default function Desincorporacion(props) {
               label="Fecha"
               format="MM/dd/yyyy"
               name="fecha"
-              // value={selectedDate}
-              onChange={dataInputsChange}
+              value=""
+              onChange={handleDateChange}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
@@ -218,9 +221,9 @@ export default function Desincorporacion(props) {
               margin="normal"
               id="time-picker"
               label="Hora"
-              name="hora"
-              // value={selectedDate}
-              onChange={dataInputsChange}
+              // name="hora"
+              value={selectedDate}
+              onChange={handleDateChange}
               KeyboardButtonProps={{
                 "aria-label": "change time",
               }}
@@ -234,11 +237,11 @@ export default function Desincorporacion(props) {
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
               margin="normal"
-              name="jornada"
+              // name="jornada"
               id="time-picker"
               label="Jornada"
-              // value={selectedDate}
-              onChange={dataInputsChange}
+              value={selectedDate}
+              onChange={handleDateChange}
               KeyboardButtonProps={{
                 "aria-label": "change time",
               }}
