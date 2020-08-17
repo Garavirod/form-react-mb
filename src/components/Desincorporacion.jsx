@@ -78,52 +78,54 @@ const lineas = [
 ];
 
 const selectInputsTag = [
-  { tagName: "Folio", data: folios, modelName:'folio' },
-  { tagName: "Linea", data: lineas, modelName:'linea' },
-  { tagName: "Solicita", data: folios, modelName:'solicita' },
-  { tagName: "Informa", data: folios, modelName:'informa' },
-  { tagName: "Estacion", data: folios, modelName:'estacion' },
-  { tagName: "Sentido", data: folios, modelName:'sentido' },
-  { tagName: "Económico", data: folios, modelName:'economico' },
-  { tagName: "Empresa", data: folios, modelName:'empresa' },
-  { tagName: "Motivo", data: folios, modelName:'motivo' },
+  { tagName: "Folio", data: folios, modelName: "folio" },
+  { tagName: "Linea", data: lineas, modelName: "linea" },
+  { tagName: "Solicita", data: folios, modelName: "solicita" },
+  { tagName: "Informa", data: folios, modelName: "informa" },
+  { tagName: "Estacion", data: folios, modelName: "estacion" },
+  { tagName: "Sentido", data: folios, modelName: "sentido" },
+  { tagName: "Económico", data: folios, modelName: "economico" },
+  { tagName: "Empresa", data: folios, modelName: "empresa" },
+  { tagName: "Motivo", data: folios, modelName: "motivo" },
 ];
 
 export default function Desincorporacion(props) {
-
-  const getAllData = ()=>{
-    props.getDataYes("hola nene!!");
+  const getAllData = () => {
+    props.getDataYes(dataRegistroIncor); //Esto se manda al padre
   };
   const classes = useStyles();
   const [dataRegistroIncor, setDataRegistroIncor] = useState({
-    folio :'',
-    linea :'',
-    solicita:'',
-    informa:'',
-    estacion:'',
-    economico:'',
-    empresa:'',
-    motivo:'',
-    odometro:'',
-    credencial:'',
-    nombre:'',
-    fecha:new Date(),
-    hora:'',
-    jornada:'',
-    observaciones:'',
-    tipo:'',
-    edoFolio:'',
-    tree:'',
-    ida:'',
-    regreso:''
+    folio: "",
+    linea: "",
+    solicita: "",
+    informa: "",
+    estacion: "",
+    economico: "",
+    empresa: "",
+    motivo: "",
+    odometro: "",
+    credencial: "",
+    nombre: "",
+    fecha: new Date(),
+    hora: "",
+    jornada: "",
+    observaciones: "",
+    tipo: "",
+    edoFolio: "",
+    tree: "",
+    ida: "",
+    regreso: "",
   });
 
-  const dataInputsChange = (event)=>{
+  const dataInputsChange = (event) => {
+    console.log(event.target.value + " con name " + event.target.name);
     setDataRegistroIncor({
       ...dataRegistroIncor,
-      [event.target.name]:event.target.value,
+      [event.target.name]: event.target.value,
     });
-  }
+    // console.log(dataRegistroIncor);
+    getAllData();
+  };
 
   return (
     <Grid container spacing={3}>
@@ -142,9 +144,8 @@ export default function Desincorporacion(props) {
             <Select
               labelId="demo-mutiple-name-label"
               id="demo-mutiple-name"              
-              // value={personName}
-              onChange={getAllData}
-              input={<Input />}
+              defaultValue={dataRegistroIncor[tag.modelName]}
+              input={<Input onChange={dataInputsChange} />}
               MenuProps={MenuProps}
               name={tag.modelName}
             >
@@ -160,19 +161,34 @@ export default function Desincorporacion(props) {
       <Grid item lg={4}>
         {/* ODÓMETRO */}
         <FormControl className={classes.formControl}>
-          <TextField id="standard-required" label="Odómetro" name="odometro" onChange={dataInputsChange}/>
+          <TextField
+            id="standard-required"
+            label="Odómetro"
+            name="odometro"
+            onChange={dataInputsChange}
+          />
         </FormControl>
       </Grid>
       <Grid item lg={4}>
         {/* CREDENCIAL */}
         <FormControl className={classes.formControl}>
-          <TextField id="standard-required" label="Credencial" name="credencial" onChange={dataInputsChange} />
+          <TextField
+            id="standard-required"
+            label="Credencial"
+            name="credencial"
+            onChange={dataInputsChange}
+          />
         </FormControl>
       </Grid>
       <Grid item lg={4}>
         {/* NOMBRE */}
         <FormControl className={classes.formControl}>
-          <TextField id="standard-required" label="Nombre" name="nombre" onChange={dataInputsChange}/>
+          <TextField
+            id="standard-required"
+            label="Nombre"
+            name="nombre"
+            onChange={dataInputsChange}
+          />
         </FormControl>
       </Grid>
       <Grid item lg={4}>
@@ -253,7 +269,11 @@ export default function Desincorporacion(props) {
         {/* TIPO DESINCO*/}
         <FormControl className={classes.formControl}>
           <FormLabel>Tipo</FormLabel>
-          <RadioGroup aria-label="gender" onChange={dataInputsChange} name="tipo">
+          <RadioGroup
+            aria-label="gender"
+            onChange={dataInputsChange}
+            name="tipo"
+          >
             <FormControlLabel
               value="Incumplido"
               control={<Radio />}

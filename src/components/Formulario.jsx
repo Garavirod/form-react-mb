@@ -74,8 +74,10 @@ export default function Formulario() {
     setValue(newValue);
   };
 
-  const superData=(dato)=>{
-    console.log(dato);
+  const superData=(props)=>{
+    console.log("Desde el padre");
+    
+    console.log(props);
     
   };
 
