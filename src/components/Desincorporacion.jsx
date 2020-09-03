@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -22,6 +22,8 @@ import {
 import TextField from "@material-ui/core/TextField";
 
 import Referencia from "./Referencia";
+import { getFolios, getLienas } from "../selectors/DataSelector";
+import { useForm } from "../hooks/useForm";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -54,28 +56,9 @@ const MenuProps = {
   },
 };
 
-const folios = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
+const folios = getFolios();
+const lineas = getLienas();
 
-const lineas = [
-  "Linea 1",
-  "Linea 2",
-  "Linea 3",
-  "Linea 4",
-  "Linea 5",
-  "Linea 6",
-  "Linea 7",
-];
 
 const selectInputsTag = [
   { tagName: "Folio", data: folios, modelName: "folio" },
@@ -91,69 +74,55 @@ const selectInputsTag = [
 
 export default function Desincorporacion(props) {
   
-  const [dataDesincorporacion] = useState({
+  const dataDesincorporacion = {
     folio: "",
     linea: "",
     solicita: "",
     informa: "",
     estacion: "",
+    sentido:"",
     economico: "",
     empresa: "",
     motivo: "",
     odometro: "",
     credencial: "",
     nombre: "",
-    fecha: "",
-    hora: "",
-    jornada: "",
+    fecha: new Date(),
+    hora: new Date().getHours(),
+    jornada: new Date().getHours(),
     observaciones: "",
     tipo: "",
     edoFolio: "",
     tree: "",
     ida: "",
     regreso: "",
-  });
-
-  const [selectedFecha, setSelectedFecha] = React.useState(new Date('2014-08-18T21:11:54'));
-  const [selectedHora, setSelectedHora] = React.useState(new Date('2014-08-18T21:11:54'));
-  const [selectedJornada, setSelectedJornada] = React.useState(new Date('2014-08-18T21:11:54'));
-
-  const handleFechaChange = (date) => {
-    console.log("FECHA");
-    dataDesincorporacion.fecha = date; 
-    setSelectedFecha(date);   
-    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
-
   };
 
-  const handleHoraChange = (date) => {
-    console.log("HORA");
-    dataDesincorporacion.hora = date; 
-    setSelectedHora(date);    
-    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
+  // Import the hooks
+  const [
+      formValues, 
+      handleInputChange,
+      handleFechaChange,
+      handleHoraChange,
+      handleJornadaChange
+    ] = useForm(dataDesincorporacion);
 
-  };
 
-  const handleJornadaChange = (date) => {
-    console.log("JORNADA");
-    dataDesincorporacion.jornada = date; 
-    setSelectedJornada(date);
-    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
-
-  };
+  const {fecha, hora, jornada} = formValues;  
 
   const classes = useStyles();    
-  const dataInputsChange = (event) => {
-    dataDesincorporacion[event.target.name] = event.target.value;       
-    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
-  };
+  // const dataInputsChange = (event) => {    
+  //   props.getDataRegistro(formValues); //Esto se manda al padre
+  // };
+
+  console.log("THE NEW VALUES ",formValues);
 
   return (
     <Grid container spacing={3}>
       <Grid item lg={12}>
         <Paper className={classes.paper} variant="outlined">
           <Typography variant="h6" component="h4">
-            Desincorporacion / Entrada
+            Desincorporación / Entrada
           </Typography>
         </Paper>
       </Grid>
@@ -166,7 +135,7 @@ export default function Desincorporacion(props) {
               id="demo-mutiple-name"              
               defaultValue=""
               input={<Input/>}
-              onChange={dataInputsChange}
+              onChange={handleInputChange}
               MenuProps={MenuProps}
               name={tag.modelName}
             >
@@ -186,7 +155,7 @@ export default function Desincorporacion(props) {
             id="standard-required"
             label="Odómetro"
             name="odometro"
-            onChange={dataInputsChange}
+            onChange={handleInputChange}
           />
         </FormControl>
       </Grid>
@@ -197,7 +166,7 @@ export default function Desincorporacion(props) {
             id="standard-required"
             label="Credencial"
             name="credencial"
-            onChange={dataInputsChange}
+            onChange={handleInputChange}
           />
         </FormControl>
       </Grid>
@@ -208,7 +177,7 @@ export default function Desincorporacion(props) {
             id="standard-required"
             label="Nombre"
             name="nombre"
-            onChange={dataInputsChange}
+            onChange={handleInputChange}
           />
         </FormControl>
       </Grid>
@@ -221,7 +190,7 @@ export default function Desincorporacion(props) {
               id="date-picker-dialog"
               label="Fecha"
               format="MM/dd/yyyy"              
-              value={selectedFecha}
+              value={fecha}
               onChange={handleFechaChange}
               KeyboardButtonProps={{
                 "aria-label": "change date",
@@ -238,7 +207,7 @@ export default function Desincorporacion(props) {
               margin="normal"
               id="time-picker"
               label="Hora"              
-              value={selectedHora}
+              value={hora}
               onChange={handleHoraChange}
               KeyboardButtonProps={{
                 "aria-label": "change time",
@@ -255,7 +224,7 @@ export default function Desincorporacion(props) {
               margin="normal"              
               id="time-picker"
               label="Jornada"
-              value={selectedJornada}
+              value={jornada}
               onChange={handleJornadaChange}
               KeyboardButtonProps={{
                 "aria-label": "change time",
@@ -269,7 +238,7 @@ export default function Desincorporacion(props) {
         <FormControl fullWidth className={classes.root}>
           <TextField
             id="outlined-multiline-static"
-            onChange={dataInputsChange}
+            onChange={handleInputChange}
             label="Observaciones"
             multiline
             rows={3}
@@ -289,7 +258,7 @@ export default function Desincorporacion(props) {
           <FormLabel>Tipo</FormLabel>
           <RadioGroup
             aria-label="gender"
-            onChange={dataInputsChange}
+            onChange={handleInputChange}
             name="tipo"
           >
             <FormControlLabel
@@ -301,7 +270,7 @@ export default function Desincorporacion(props) {
             <FormControlLabel
               value="Afectación"
               control={<Radio />}
-              label="Afectacións"
+              label="Afectación"
             />
           </RadioGroup>
         </FormControl>
@@ -313,7 +282,7 @@ export default function Desincorporacion(props) {
           <RadioGroup
             aria-label="gender"
             // value={value2}
-            onChange={dataInputsChange}
+            onChange={handleInputChange}
             name="edoFolio"
           >
             <FormControlLabel
