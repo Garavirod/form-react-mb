@@ -17,18 +17,19 @@ import Typography from "@material-ui/core/Typography";
 import {
   KeyboardTimePicker,
   KeyboardDatePicker,
-  MuiPickersUtilsProvider,
+  MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import TextField from "@material-ui/core/TextField";
 
 import Referencia from "./Referencia";
 import { getFolios, getLienas } from "../selectors/DataSelector";
-import { useForm } from "../hooks/useForm";
+import { useContext } from "react";
+import { dataContext } from "./DataContext";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 120
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -59,7 +60,6 @@ const MenuProps = {
 const folios = getFolios();
 const lineas = getLienas();
 
-
 const selectInputsTag = [
   { tagName: "Folio", data: folios, modelName: "folio" },
   { tagName: "Linea", data: lineas, modelName: "linea" },
@@ -72,56 +72,24 @@ const selectInputsTag = [
   { tagName: "Motivo", data: folios, modelName: "motivo" },
 ];
 
-export default function Desincorporacion(props) {
-  
-  const dataDesincorporacion = {
-    folio: "",
-    linea: "",
-    solicita: "",
-    informa: "",
-    estacion: "",
-    sentido:"",
-    economico: "",
-    empresa: "",
-    motivo: "",
-    odometro: "",
-    credencial: "",
-    nombre: "",
-    fecha: new Date(),
-    hora: new Date().getHours(),
-    jornada: new Date().getHours(),
-    observaciones: "",
-    tipo: "",
-    edoFolio: "",
-    tree: "",
-    ida: "",
-    regreso: "",
-  };
-
-  // Import the hooks
-  const [
-      formValues, 
-      handleInputChange,
-      handleFechaChange,
-      handleHoraChange,
-      handleJornadaChange
-    ] = useForm(dataDesincorporacion);
-
-
-  const {fecha, hora, jornada} = formValues;  
-
-  const classes = useStyles();    
-  // const dataInputsChange = (event) => {    
-  //   props.getDataRegistro(formValues); //Esto se manda al padre
-  // };
-
-  console.log("THE NEW VALUES ",formValues);
+export default function Desincorporacion() {
+  const classes = useStyles();
+  // Use the context
+  const {
+    handleFechaChange,
+    handleHoraChange,
+    handleJornadaChange,
+    handleInputChange,
+    fecha,
+    hora,
+    jornada,
+  } = useContext(dataContext);
 
   return (
     <Grid container spacing={3}>
       <Grid item lg={12}>
         <Paper className={classes.paper} variant="outlined">
-          <Typography variant="h6" component="h4">
+          <Typography variant="h4" component="p">
             Desincorporación / Entrada
           </Typography>
         </Paper>
@@ -131,10 +99,10 @@ export default function Desincorporacion(props) {
         {selectInputsTag.map((tag) => (
           <FormControl key={tag.tagName} className={classes.formControl}>
             <InputLabel>{tag.tagName}</InputLabel>
-            <Select              
-              id="demo-mutiple-name"              
+            <Select
+              id="demo-mutiple-name"
               defaultValue=""
-              input={<Input/>}
+              input={<Input />}
               onChange={handleInputChange}
               MenuProps={MenuProps}
               name={tag.modelName}
@@ -148,8 +116,8 @@ export default function Desincorporacion(props) {
           </FormControl>
         ))}
       </Grid>
+      {/* ODÓMETRO */}
       <Grid item lg={4}>
-        {/* ODÓMETRO */}
         <FormControl className={classes.formControl}>
           <TextField
             id="standard-required"
@@ -159,8 +127,8 @@ export default function Desincorporacion(props) {
           />
         </FormControl>
       </Grid>
+      {/* CREDENCIAL */}
       <Grid item lg={4}>
-        {/* CREDENCIAL */}
         <FormControl className={classes.formControl}>
           <TextField
             id="standard-required"
@@ -170,8 +138,8 @@ export default function Desincorporacion(props) {
           />
         </FormControl>
       </Grid>
-      <Grid item lg={4}>
-        {/* NOMBRE */}
+      {/* NOMBRE */}
+      <Grid item lg={4}>        
         <FormControl className={classes.formControl}>
           <TextField
             id="standard-required"
@@ -189,7 +157,7 @@ export default function Desincorporacion(props) {
               margin="normal"
               id="date-picker-dialog"
               label="Fecha"
-              format="MM/dd/yyyy"              
+              format="MM/dd/yyyy"
               value={fecha}
               onChange={handleFechaChange}
               KeyboardButtonProps={{
@@ -206,7 +174,7 @@ export default function Desincorporacion(props) {
             <KeyboardTimePicker
               margin="normal"
               id="time-picker"
-              label="Hora"              
+              label="Hora"
               value={hora}
               onChange={handleHoraChange}
               KeyboardButtonProps={{
@@ -221,7 +189,7 @@ export default function Desincorporacion(props) {
         <FormControl className={classes.formControl}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
-              margin="normal"              
+              margin="normal"
               id="time-picker"
               label="Jornada"
               value={jornada}
@@ -253,7 +221,7 @@ export default function Desincorporacion(props) {
         </FormControl>
       </Grid>
       <Grid item lg={2}>
-        {/* TIPO DESINCO*/}
+        {/* TIPO DESINCO */}
         <FormControl className={classes.formControl}>
           <FormLabel>Tipo</FormLabel>
           <RadioGroup
@@ -306,8 +274,173 @@ export default function Desincorporacion(props) {
         </Paper>
       </Grid>
       <Grid item lg={12}>
-        <Referencia />
+        {/* <Referencia /> */}
+        hi
       </Grid>
     </Grid>
   );
 }
+
+/*
+    <Grid item lg={4}>
+        
+        <FormControl className={classes.formControl}>
+          <TextField
+            id="standard-required"
+            label="Odómetro"
+            name="odometro"
+            onChange={handleInputChange}
+          />
+        </FormControl>
+      </Grid>
+      <Grid item lg={4}>
+        
+        <FormControl className={classes.formControl}>
+          <TextField
+            id="standard-required"
+            label="Credencial"
+            name="credencial"
+            onChange={handleInputChange}
+          />
+        </FormControl>
+      </Grid>
+      <Grid item lg={4}>
+        // NOMBRE 
+        <FormControl className={classes.formControl}>
+          <TextField
+            id="standard-required"
+            label="Nombre"
+            name="nombre"
+            onChange={handleInputChange}
+          />
+        </FormControl>
+      </Grid>
+      <Grid item lg={4}>
+        // FECHA 
+        <FormControl className={classes.formControl}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              margin="normal"
+              id="date-picker-dialog"
+              label="Fecha"
+              format="MM/dd/yyyy"              
+              value={fecha}
+              onChange={handleFechaChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+          </MuiPickersUtilsProvider>
+        </FormControl>
+      </Grid>
+      <Grid item lg={4}>
+        // HORA 
+        <FormControl className={classes.formControl}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardTimePicker
+              margin="normal"
+              id="time-picker"
+              label="Hora"              
+              value={hora}
+              onChange={handleHoraChange}
+              KeyboardButtonProps={{
+                "aria-label": "change time",
+              }}
+            />
+          </MuiPickersUtilsProvider>
+        </FormControl>
+      </Grid>
+      <Grid item lg={4}>
+        // JORNADA
+        <FormControl className={classes.formControl}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardTimePicker
+              margin="normal"              
+              id="time-picker"
+              label="Jornada"
+              value={jornada}
+              onChange={handleJornadaChange}
+              KeyboardButtonProps={{
+                "aria-label": "change time",
+              }}
+            />
+          </MuiPickersUtilsProvider>
+        </FormControl>
+      </Grid>
+      <Grid item lg={8}>
+        //OBSERVACIONES 
+        <FormControl fullWidth className={classes.root}>
+          <TextField
+            id="outlined-multiline-static"
+            onChange={handleInputChange}
+            label="Observaciones"
+            multiline
+            rows={3}
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            name="observaciones"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </FormControl>
+      </Grid>
+      <Grid item lg={2}>
+        //TIPO DESINCO
+        <FormControl className={classes.formControl}>
+          <FormLabel>Tipo</FormLabel>
+          <RadioGroup
+            aria-label="gender"
+            onChange={handleInputChange}
+            name="tipo"
+          >
+            <FormControlLabel
+              value="Incumplido"
+              control={<Radio />}
+              label="Incumplido"
+            />
+            <FormControlLabel value="Apoyo" control={<Radio />} label="Apoyo" />
+            <FormControlLabel
+              value="Afectación"
+              control={<Radio />}
+              label="Afectación"
+            />
+          </RadioGroup>
+        </FormControl>
+      </Grid>
+      <Grid item lg={2}>
+        // ESTADO FOLIO
+        <FormControl className={classes.formControl}>
+          <FormLabel>Estado de foilo</FormLabel>
+          <RadioGroup
+            aria-label="gender"
+            // value={value2}
+            onChange={handleInputChange}
+            name="edoFolio"
+          >
+            <FormControlLabel
+              value="Abierto"
+              control={<Radio />}
+              label="Abierto"
+            />
+            <FormControlLabel
+              value="Cerrado"
+              control={<Radio />}
+              label="Cerrado"
+            />
+          </RadioGroup>
+        </FormControl>
+      </Grid>
+      <Grid item lg={12}>
+        <Paper className={classes.paper} elevation={3} variant="outlined">
+          <Typography variant="h6" component="h4">
+            Referencia
+          </Typography>
+        </Paper>
+      </Grid>
+      <Grid item lg={12}>
+        <Referencia />
+      </Grid>
+
+*/

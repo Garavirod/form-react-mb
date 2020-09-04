@@ -9,13 +9,21 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 // Tapbar
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Box from "@material-ui/core/Box";
+
+// Models
+import {structDataDesinc} from "../models/Desincorp";
 
 // Components
 import Desincorporacion from "./Desincorporacion";
+import { dataContext } from "./DataContext";
+
+// Hooks
+import { useForm } from "../hooks/useForm";
+
 // import Incorporacion from "./Incorporacion";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -52,7 +59,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -68,28 +75,33 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
 export default function Formulario() {
   const classes = useStyles();
 
-  const superData = (props) => {
-    console.log("Desde el padre ", props);
-  };
-
+  // change the panel
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const sendData = (e)=>{
-    e.preventDefault();
-    console.log("Data a mandar");
-    
-  };
+  //Model
+  const _desinc = structDataDesinc;
+
+  //Import the hooks
+  const [
+    formValues,
+    handleInputChange,
+    handleFechaChange,
+    handleHoraChange,
+    handleJornadaChange,
+  ] = useForm(_desinc);
+
+  // Default values from data Time
+  const { fecha, hora, jornada } = formValues;
 
   return (
     <Container maxWidth="lg" className={classes.root}>
@@ -104,41 +116,53 @@ export default function Formulario() {
           </Typography>
         </Grid>
         <Grid item lg={12}>
-          <form onSubmit={sendData}>
-            <Card>
-              <CardContent>
-                <div className={classes.root}>
-                  <AppBar position="static">
-                    <Tabs
-                      value={value}
-                      onChange={handleChange}
-                      aria-label="simple tabs example"
-                    >
-                      <Tab label="Desincorporaciones" {...a11yProps(0)} />
-                      <Tab label="Incorporaciones" {...a11yProps(1)} />
-                    </Tabs>
-                  </AppBar>
-                  <TabPanel value={value} index={0}>
-                    <Desincorporacion getDataRegistro={superData} />
-                  </TabPanel>
-                  <TabPanel value={value} index={1}>
-                    Item Two
-                  </TabPanel>
-                </div>
-              </CardContent>
-              <CardActions>
-                <Button size="small" variant="contained" color="primary">
-                  Guardar
-                </Button>
-                <Button size="small" variant="contained" color="primary">
-                  Cancelar
-                </Button>
-                <Button size="small" variant="contained" color="primary">
-                  Nuevo folio
-                </Button>
-              </CardActions>
-            </Card>
-          </form>
+          <dataContext.Provider 
+            value={
+              handleFechaChange,
+              handleHoraChange,
+              handleJornadaChange,
+              handleInputChange,
+              fecha,
+              hora,
+              jornada
+            }
+          >
+            <form>
+              <Card>
+                <CardContent>
+                  <div className={classes.root}>
+                    <AppBar position="static">
+                      <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        aria-label="simple tabs example"
+                      >
+                        <Tab label="Desincorporaciones" {...a11yProps(0)} />
+                        <Tab label="Incorporaciones" {...a11yProps(1)} />
+                      </Tabs>
+                    </AppBar>
+                    <TabPanel value={value} index={0}>
+                      <Desincorporacion />
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                      {JSON.stringify(formValues,null,3)}
+                    </TabPanel>
+                  </div>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" variant="contained" color="primary">
+                    Guardar
+                  </Button>
+                  <Button size="small" variant="contained" color="primary">
+                    Cancelar
+                  </Button>
+                  <Button size="small" variant="contained" color="primary">
+                    Nuevo folio
+                  </Button>
+                </CardActions>
+              </Card>
+            </form>
+          </dataContext.Provider>
         </Grid>
       </Grid>
     </Container>
