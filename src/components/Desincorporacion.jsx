@@ -43,9 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    // textAlign: "center",
     color: theme.palette.text.secondary,
-    // background : 'green'
   },
 }));
 
@@ -108,19 +106,20 @@ export default function Desincorporacion() {
         {selectInputsTag.map((tag) => (
           <FormControl key={tag.tagName} className={classes.formControl}>
             <InputLabel>{tag.tagName}</InputLabel>
-            <Select
-              id="demo-mutiple-name"
+            <Select              
               defaultValue=""
               input={<Input />}
               onChange={handleInputChange}
               MenuProps={MenuProps}
               name={tag.modelName}
             >
-              {tag.data.map((option) => (
+              {
+                tag.data.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
                 </MenuItem>
-              ))}
+                ))
+              }
             </Select>
           </FormControl>
         ))}
@@ -128,8 +127,7 @@ export default function Desincorporacion() {
       {/* ODÓMETRO */}
       <Grid item lg={4}>
         <FormControl className={classes.formControl}>
-          <TextField
-            id="standard-required"
+          <TextField            
             label="Odómetro"
             name="odometro"
             onChange={handleInputChange}
@@ -139,8 +137,7 @@ export default function Desincorporacion() {
       {/* CREDENCIAL */}
       <Grid item lg={4}>
         <FormControl className={classes.formControl}>
-          <TextField
-            id="standard-required"
+          <TextField            
             label="Credencial"
             name="credencial"
             onChange={handleInputChange}
@@ -150,8 +147,7 @@ export default function Desincorporacion() {
       {/* NOMBRE */}
       <Grid item lg={4}>
         <FormControl className={classes.formControl}>
-          <TextField
-            id="standard-required"
+          <TextField            
             label="Nombre"
             name="nombre"
             onChange={handleInputChange}
