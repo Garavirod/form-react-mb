@@ -17,19 +17,22 @@ import Typography from "@material-ui/core/Typography";
 import {
   KeyboardTimePicker,
   KeyboardDatePicker,
-  MuiPickersUtilsProvider
+  MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import TextField from "@material-ui/core/TextField";
 
-import Referencia from "./Referencia";
+// import Referencia from "./Referencia";
 import { getFolios, getLienas } from "../selectors/DataSelector";
-import { useContext } from "react";
-import { dataContext } from "./DataContext";
+
+// Hooks
+import { useForm } from "../hooks/useForm";
+// Models
+import { structDataDesinc } from "../models/Desincorp";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
+    minWidth: 120,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -74,22 +77,28 @@ const selectInputsTag = [
 
 export default function Desincorporacion() {
   const classes = useStyles();
-  // Use the context
-  const {
+  //Model
+  const _desinc = structDataDesinc;
+
+  //Import the hooks
+  const [
+    formValues,
+    handleInputChange,
     handleFechaChange,
     handleHoraChange,
     handleJornadaChange,
-    handleInputChange,
-    fecha,
-    hora,
-    jornada,
-  } = useContext(dataContext);
+  ] = useForm(_desinc);
+
+  // Default values from data Time
+  const { fecha, hora, jornada } = formValues;
+
+  console.log(formValues);
 
   return (
     <Grid container spacing={3}>
       <Grid item lg={12}>
         <Paper className={classes.paper} variant="outlined">
-          <Typography variant="h4" component="p">
+          <Typography variant="h6" component="h4">
             Desincorporación / Entrada
           </Typography>
         </Paper>
@@ -139,7 +148,7 @@ export default function Desincorporacion() {
         </FormControl>
       </Grid>
       {/* NOMBRE */}
-      <Grid item lg={4}>        
+      <Grid item lg={4}>
         <FormControl className={classes.formControl}>
           <TextField
             id="standard-required"

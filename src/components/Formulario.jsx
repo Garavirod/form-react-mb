@@ -13,16 +13,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
-
-// Models
-import {structDataDesinc} from "../models/Desincorp";
-
 // Components
 import Desincorporacion from "./Desincorporacion";
-import { dataContext } from "./DataContext";
-
-// Hooks
-import { useForm } from "../hooks/useForm";
 
 // import Incorporacion from "./Incorporacion";
 
@@ -88,21 +80,6 @@ export default function Formulario() {
     setValue(newValue);
   };
 
-  //Model
-  const _desinc = structDataDesinc;
-
-  //Import the hooks
-  const [
-    formValues,
-    handleInputChange,
-    handleFechaChange,
-    handleHoraChange,
-    handleJornadaChange,
-  ] = useForm(_desinc);
-
-  // Default values from data Time
-  const { fecha, hora, jornada } = formValues;
-
   return (
     <Container maxWidth="lg" className={classes.root}>
       <Grid container spacing={3}>
@@ -115,18 +92,7 @@ export default function Formulario() {
             Incorporaciones y Desincorporaciones
           </Typography>
         </Grid>
-        <Grid item lg={12}>
-          <dataContext.Provider 
-            value={
-              handleFechaChange,
-              handleHoraChange,
-              handleJornadaChange,
-              handleInputChange,
-              fecha,
-              hora,
-              jornada
-            }
-          >
+        <Grid item lg={12}>          
             <form>
               <Card>
                 <CardContent>
@@ -142,10 +108,10 @@ export default function Formulario() {
                       </Tabs>
                     </AppBar>
                     <TabPanel value={value} index={0}>
-                      <Desincorporacion />
+                      <Desincorporacion/>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                      {JSON.stringify(formValues,null,3)}
+                      <h1>Incorporaciones</h1>
                     </TabPanel>
                   </div>
                 </CardContent>
@@ -161,8 +127,7 @@ export default function Formulario() {
                   </Button>
                 </CardActions>
               </Card>
-            </form>
-          </dataContext.Provider>
+            </form>          
         </Grid>
       </Grid>
     </Container>

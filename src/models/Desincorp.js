@@ -19,5 +19,5 @@ export const structDataDesinc = {
     edoFolio: "",
     tree: "",
     ida: "",
-    regreso: "",
+    regreso: ""
 };
