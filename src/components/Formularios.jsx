@@ -7,22 +7,15 @@ import {
   CardActions,
   Button,
   Container,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { ModelDesincorporacion } from "../models/Desincorp";
 import { useForm } from "../hooks/useForm";
 import { DesincorporacionComp } from "./DesincorporacionComp";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    margin: "20px",
-  },
   conatiner: {
     flexGrow: 1,
-    margin: "20px",
-    background: "lime",
     height: "100vh",
   },
   headerText: {
@@ -37,20 +30,20 @@ export default function Formularios() {
   );
 
   return (
-    <React.Fragment>
-      <Container maxWidth="lg" className={classes.root}>
-      <Grid item lg={12}>
-          <Typography
-            variant="h6"
-            component="h4"
-            className={classes.headerText}
-          >
-            Incorporaciones y Desincorporaciones
-          </Typography>
-        </Grid>
-        <Grid item lg={12}>
-          <form>
-            <Card>
+    <Container maxWidth="lg" className={classes.conatiner}>
+      <Card>
+        <Grid container spacing={3}>
+          <Grid item lg={12}>
+            <Typography
+              variant="h6"
+              component="h4"
+              className={classes.headerText}
+            >
+              Incorporaciones y Desincorporaciones
+            </Typography>
+          </Grid>
+          <Grid item lg={12}>
+            <form>
               <CardContent>
                 <Grid item lg={12}>
                   <DesincorporacionComp
@@ -77,10 +70,10 @@ export default function Formularios() {
                   Nuevo folio
                 </Button>
               </CardActions>
-            </Card>
-          </form>
+            </form>
+          </Grid>
         </Grid>
-      </Container>
-    </React.Fragment>
+      </Card>
+    </Container>
   );
 }

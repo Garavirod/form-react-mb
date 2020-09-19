@@ -12,6 +12,7 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Container,
 } from "@material-ui/core";
 import { getFolios } from "../helpers/DataGetters";
 
@@ -20,14 +21,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(3),
     minWidth: 120,
     maxWidth: 300,
   },
-  conatiner: {
-    flexGrow: 1,
-    margin: "20px",
-    height: "100vh",
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
   },
 }));
 
@@ -35,15 +36,16 @@ export const DesincorporacionComp = (props) => {
   const classes = useStyles();
   const { valuesDes, handleInputChangeDes } = props;
 
+    // desestructurando el values del hook
   const {
     folio,
-    // linea,
-    // solicita,
-    // informa,
-    // estacion,
-    // economico,
-    // empresa,
-    // motivo,
+    linea,
+    solicita,
+    informa,
+    estacion,
+    economico,
+    empresa,
+    motivo,
     odometro,
     credencial,
     nombre,
@@ -52,26 +54,22 @@ export const DesincorporacionComp = (props) => {
     jornada,
     observaciones,
     tipo,
-    edoFolio,
-    // tree,
-    // ida,
-    // regreso,
+    edoFolio
   } = valuesDes;
 
   const folios = getFolios();
-
-  console.log(valuesDes);
   return (
-    <div className={classes.root}>
+    <Container className={classes.root}>
       <Grid container spancing={3}>
-        <Grid item lg={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <Paper className={classes.paper} variant="outlined">
             <Typography variant="h6" component="h4">
               Desincorporacion / Entrada
             </Typography>
           </Paper>
         </Grid>
-        <Grid item lg={12}>
+        <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* FOLIO */}
           <FormControl className={classes.formControl}>
             <InputLabel>Folio</InputLabel>
             <Select
@@ -80,6 +78,146 @@ export const DesincorporacionComp = (props) => {
               onChange={handleInputChangeDes}
               inputProps={{
                 name: "folio",
+              }}
+            >
+              {folios.map((it) => (
+                <option key={it} value={it}>
+                  {it}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* LINEA */}
+          <FormControl className={classes.formControl}>
+            <InputLabel>Linea</InputLabel>
+            <Select
+              native
+              value={linea}
+              onChange={handleInputChangeDes}
+              inputProps={{
+                name: "linea",
+              }}
+            >
+              {folios.map((it) => (
+                <option key={it} value={it}>
+                  {it}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* SOLIICITA */}
+          <FormControl className={classes.formControl}>
+            <InputLabel>Solicita</InputLabel>
+            <Select
+              native
+              value={solicita}
+              onChange={handleInputChangeDes}
+              inputProps={{
+                name: "solicita",
+              }}
+            >
+              {folios.map((it) => (
+                <option key={it} value={it}>
+                  {it}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* INFROMA */}
+          <FormControl className={classes.formControl}>
+            <InputLabel>Informa</InputLabel>
+            <Select
+              native
+              value={informa}
+              onChange={handleInputChangeDes}
+              inputProps={{
+                name: "informa",
+              }}
+            >
+              {folios.map((it) => (
+                <option key={it} value={it}>
+                  {it}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* ESTACIÓN */}
+          <FormControl className={classes.formControl}>
+            <InputLabel>Estación</InputLabel>
+            <Select
+              native
+              value={estacion}
+              onChange={handleInputChangeDes}
+              inputProps={{
+                name: "estacion",
+              }}
+            >
+              {folios.map((it) => (
+                <option key={it} value={it}>
+                  {it}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* ECONÓMICO */}
+          <FormControl className={classes.formControl}>
+            <InputLabel>Económico</InputLabel>
+            <Select
+              native
+              value={economico}
+              onChange={handleInputChangeDes}
+              inputProps={{
+                name: "economico",
+              }}
+            >
+              {folios.map((it) => (
+                <option key={it} value={it}>
+                  {it}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* EMPRESA */}
+          <FormControl className={classes.formControl}>
+            <InputLabel>Empresa</InputLabel>
+            <Select
+              native
+              value={empresa}
+              onChange={handleInputChangeDes}
+              inputProps={{
+                name: "empresa",
+              }}
+            >
+              {folios.map((it) => (
+                <option key={it} value={it}>
+                  {it}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* MOTIVO */}
+          <FormControl className={classes.formControl}>
+            <InputLabel>Motivo</InputLabel>
+            <Select
+              native
+              value={motivo}
+              onChange={handleInputChangeDes}
+              inputProps={{
+                name: "motivo",
               }}
             >
               {folios.map((it) => (
@@ -132,9 +270,10 @@ export const DesincorporacionComp = (props) => {
             <TextField
               id="date"
               name="fecha"
-              label="Birthday"
+              label="Fecha"
               type="date"
               value={fecha}
+              onChange={handleInputChangeDes}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
@@ -148,9 +287,10 @@ export const DesincorporacionComp = (props) => {
             <TextField
               id="time"
               name="hora"
-              label="Alarm clock"
+              label="Hora"
               type="time"
               value={hora}
+              onChange={handleInputChangeDes}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
@@ -167,9 +307,10 @@ export const DesincorporacionComp = (props) => {
             <TextField
               id="time"
               name="jornada"
-              label="Alarm clock"
+              label="Jornada"
               type="time"
               value={jornada}
+              onChange={handleInputChangeDes}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
@@ -180,9 +321,9 @@ export const DesincorporacionComp = (props) => {
             />
           </FormControl>
         </Grid>
-        <Grid item lg={8}>
+        <Grid item lg={8} xs={12}>
           {/* OBSERVACIONES */}
-          <FormControl fullWidth className={classes.root}>
+          <FormControl fullWidth >
             <TextField
               id="outlined-multiline-static"
               onChange={handleInputChangeDes}
@@ -200,7 +341,7 @@ export const DesincorporacionComp = (props) => {
             />
           </FormControl>
         </Grid>
-        <Grid item lg={2}>
+        <Grid item lg={2} xs={6}>
           {/* TIPO DESINCO*/}
           <FormControl className={classes.formControl}>
             <FormLabel>Tipo</FormLabel>
@@ -228,7 +369,7 @@ export const DesincorporacionComp = (props) => {
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item lg={2}>
+        <Grid item lg={2} xs={6}>
           {/* ESTADO FOLIO */}
           <FormControl className={classes.formControl}>
             <FormLabel>Estado de foilo</FormLabel>
@@ -252,6 +393,6 @@ export const DesincorporacionComp = (props) => {
           </FormControl>
         </Grid>
       </Grid>
-    </div>
+    </Container>
   );
 };
