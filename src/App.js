@@ -1,15 +1,11 @@
 import React from "react";
-// import logo from './logo.svg';
-// import './App.css';
-// import Form from "./components/Form";
-import Formulario from './components/Formulario';
+import Formularios from "./components/Formularios";
 // Components
 
 function App() {
   return (
     <React.Fragment>
-      {/* <Form /> */}
-      <Formulario/>
+      <Formularios />
     </React.Fragment>
   );
 }

@@ -1,10 +1,9 @@
-import React,{useState} from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import DateFnsUtils from "@date-io/date-fns"; // choose your lib
 import Input from "@material-ui/core/Input";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -13,20 +12,15 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-
-import {
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
 import TextField from "@material-ui/core/TextField";
-
-import Referencia from "./Referencia";
+import { useForm } from "../hooks/useForm";
+import { ModelDesincorporacion } from "../models/Desincorp";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+    maxWidth: 300,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -37,9 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    // textAlign: "center",
     color: theme.palette.text.secondary,
-    // background : 'green'
   },
 }));
 
@@ -67,86 +59,46 @@ const folios = [
   "Kelly Snyder",
 ];
 
-const lineas = [
-  "Linea 1",
-  "Linea 2",
-  "Linea 3",
-  "Linea 4",
-  "Linea 5",
-  "Linea 6",
-  "Linea 7",
-];
+// const lineas = [
+//   "Linea 1",
+//   "Linea 2",
+//   "Linea 3",
+//   "Linea 4",
+//   "Linea 5",
+//   "Linea 6",
+//   "Linea 7",
+// ];
 
-const selectInputsTag = [
-  { tagName: "Folio", data: folios, modelName: "folio" },
-  { tagName: "Linea", data: lineas, modelName: "linea" },
-  { tagName: "Solicita", data: folios, modelName: "solicita" },
-  { tagName: "Informa", data: folios, modelName: "informa" },
-  { tagName: "Estacion", data: folios, modelName: "estacion" },
-  { tagName: "Sentido", data: folios, modelName: "sentido" },
-  { tagName: "Económico", data: folios, modelName: "economico" },
-  { tagName: "Empresa", data: folios, modelName: "empresa" },
-  { tagName: "Motivo", data: folios, modelName: "motivo" },
-];
+export const Desincorporacion = () => {
+  const classes = useStyles();
 
-export default function Desincorporacion(props) {
+  const initial_desinc = ModelDesincorporacion();
   
-  const [dataDesincorporacion] = useState({
-    folio: "",
-    linea: "",
-    solicita: "",
-    informa: "",
-    estacion: "",
-    economico: "",
-    empresa: "",
-    motivo: "",
-    odometro: "",
-    credencial: "",
-    nombre: "",
-    fecha: "",
-    hora: "",
-    jornada: "",
-    observaciones: "",
-    tipo: "",
-    edoFolio: "",
-    tree: "",
-    ida: "",
-    regreso: "",
-  });
+  const [values, handleInputChange] = useForm(initial_desinc);
+  const {
+    folio,
+    // linea,
+    // solicita,
+    // informa,
+    // estacion,
+    // economico,
+    // empresa,
+    // motivo,
+    odometro,
+    credencial,
+    nombre,
+    fecha,
+    hora,
+    jornada,
+    observaciones,
+    tipo,
+    edoFolio,
+    // tree,
+    // ida,
+    // regreso,
+  } = values;
 
-  const [selectedFecha, setSelectedFecha] = React.useState(new Date('2014-08-18T21:11:54'));
-  const [selectedHora, setSelectedHora] = React.useState(new Date('2014-08-18T21:11:54'));
-  const [selectedJornada, setSelectedJornada] = React.useState(new Date('2014-08-18T21:11:54'));
-
-  const handleFechaChange = (date) => {
-    console.log("FECHA");
-    dataDesincorporacion.fecha = date; 
-    setSelectedFecha(date);   
-    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
-
-  };
-
-  const handleHoraChange = (date) => {
-    console.log("HORA");
-    dataDesincorporacion.hora = date; 
-    setSelectedHora(date);    
-    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
-
-  };
-
-  const handleJornadaChange = (date) => {
-    console.log("JORNADA");
-    dataDesincorporacion.jornada = date; 
-    setSelectedJornada(date);
-    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
-
-  };
-
-  const classes = useStyles();    
-  const dataInputsChange = (event) => {
-    dataDesincorporacion[event.target.name] = event.target.value;       
-    props.getDataRegistro(dataDesincorporacion); //Esto se manda al padre
-  };
+  console.log(values);
 
   return (
     <Grid container spacing={3}>
@@ -158,26 +110,25 @@ export default function Desincorporacion(props) {
         </Paper>
       </Grid>
       <Grid item lg={12}>
-        {/* SELECTS INPUTS */}
-        {selectInputsTag.map((tag) => (
-          <FormControl key={tag.tagName} className={classes.formControl}>
-            <InputLabel>{tag.tagName}</InputLabel>
-            <Select              
-              id="demo-mutiple-name"              
-              defaultValue=""
-              input={<Input/>}
-              onChange={dataInputsChange}
-              MenuProps={MenuProps}
-              name={tag.modelName}
-            >
-              {tag.data.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        ))}
+        {/* SELECTS INPUTS */}        
+        <FormControl className={classes.formControl}>
+        <InputLabel id="demo-mutiple-name-label">Name</InputLabel>
+        <Select
+          labelId="demo-mutiple-name-label"
+          id="demo-mutiple-name"          
+          value={folio}
+          onChange={handleInputChange}
+          input={<Input />}
+          MenuProps={MenuProps.PaperProps}
+          name="folio"
+        >
+          {folios.map((name) => (
+            <MenuItem key={name} value={name}>
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>    
       </Grid>
       <Grid item lg={4}>
         {/* ODÓMETRO */}
@@ -186,7 +137,8 @@ export default function Desincorporacion(props) {
             id="standard-required"
             label="Odómetro"
             name="odometro"
-            onChange={dataInputsChange}
+            value={odometro}
+            onChange={handleInputChange}
           />
         </FormControl>
       </Grid>
@@ -197,7 +149,8 @@ export default function Desincorporacion(props) {
             id="standard-required"
             label="Credencial"
             name="credencial"
-            onChange={dataInputsChange}
+            value={credencial}
+            onChange={handleInputChange}
           />
         </FormControl>
       </Grid>
@@ -208,60 +161,63 @@ export default function Desincorporacion(props) {
             id="standard-required"
             label="Nombre"
             name="nombre"
-            onChange={dataInputsChange}
+            value={nombre}
+            onChange={handleInputChange}
           />
         </FormControl>
       </Grid>
       <Grid item lg={4}>
         {/* FECHA */}
         <FormControl className={classes.formControl}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              margin="normal"
-              id="date-picker-dialog"
-              label="Fecha"
-              format="MM/dd/yyyy"              
-              value={selectedFecha}
-              onChange={handleFechaChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-          </MuiPickersUtilsProvider>
+          <TextField
+            id="date"
+            name="fecha"
+            label="Birthday"
+            type="date"
+            value={fecha}
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
         </FormControl>
       </Grid>
       <Grid item lg={4}>
         {/* HORA */}
         <FormControl className={classes.formControl}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardTimePicker
-              margin="normal"
-              id="time-picker"
-              label="Hora"              
-              value={selectedHora}
-              onChange={handleHoraChange}
-              KeyboardButtonProps={{
-                "aria-label": "change time",
-              }}
-            />
-          </MuiPickersUtilsProvider>
+          <TextField
+            id="time"
+            name="hora"
+            label="Alarm clock"
+            type="time"
+            value={hora}
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 300, // 5 min
+            }}
+          />
         </FormControl>
       </Grid>
       <Grid item lg={4}>
         {/* JORNADA */}
         <FormControl className={classes.formControl}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardTimePicker
-              margin="normal"              
-              id="time-picker"
-              label="Jornada"
-              value={selectedJornada}
-              onChange={handleJornadaChange}
-              KeyboardButtonProps={{
-                "aria-label": "change time",
-              }}
-            />
-          </MuiPickersUtilsProvider>
+          <TextField
+            id="time"
+            name="jornada"
+            label="Alarm clock"
+            type="time"
+            value={jornada}
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 300, // 5 min
+            }}
+          />
         </FormControl>
       </Grid>
       <Grid item lg={8}>
@@ -269,7 +225,7 @@ export default function Desincorporacion(props) {
         <FormControl fullWidth className={classes.root}>
           <TextField
             id="outlined-multiline-static"
-            onChange={dataInputsChange}
+            onChange={handleInputChange}
             label="Observaciones"
             multiline
             rows={3}
@@ -277,6 +233,7 @@ export default function Desincorporacion(props) {
             fullWidth
             margin="normal"
             name="observaciones"
+            value={observaciones}
             InputLabelProps={{
               shrink: true,
             }}
@@ -289,8 +246,9 @@ export default function Desincorporacion(props) {
           <FormLabel>Tipo</FormLabel>
           <RadioGroup
             aria-label="gender"
-            onChange={dataInputsChange}
+            onChange={handleInputChange}
             name="tipo"
+            value={tipo}
           >
             <FormControlLabel
               value="Incumplido"
@@ -312,8 +270,8 @@ export default function Desincorporacion(props) {
           <FormLabel>Estado de foilo</FormLabel>
           <RadioGroup
             aria-label="gender"
-            // value={value2}
-            onChange={dataInputsChange}
+            value={edoFolio}
+            onChange={handleInputChange}
             name="edoFolio"
           >
             <FormControlLabel
@@ -329,16 +287,13 @@ export default function Desincorporacion(props) {
           </RadioGroup>
         </FormControl>
       </Grid>
-      <Grid item lg={12}>
+      {/* <Grid item lg={12}>
         <Paper className={classes.paper} elevation={3} variant="outlined">
           <Typography variant="h6" component="h4">
             Referencia
           </Typography>
         </Paper>
-      </Grid>
-      <Grid item lg={12}>
-        <Referencia />
-      </Grid>
+      </Grid>       */}
     </Grid>
   );
 }
