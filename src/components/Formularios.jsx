@@ -9,9 +9,11 @@ import {
   Container,
   Typography,
 } from "@material-ui/core";
-import { ModelDesincorporacion } from "../models/Desincorp";
+
 import { useForm } from "../hooks/useForm";
 import { DesincorporacionComp } from "./DesincorporacionComp";
+import { IncorporacionComp } from "./IncorporacionComp";
+import { ModelDesincorporacion, ModelIncorporacion } from "../models/ModelsIncorporacion";
 
 const useStyles = makeStyles((theme) => ({
   conatiner: {
@@ -25,9 +27,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Formularios() {
   const classes = useStyles();
+
   const [valuesDes, handleInputChangeDes, resetDes] = useForm(
     ModelDesincorporacion
   );
+
+  const [valuesInco, handleInputChangeInc, resetInc] = useForm(
+    ModelIncorporacion
+  );
+
+  console.log(valuesInco);
 
   return (
     <Container maxWidth="lg" className={classes.conatiner}>
@@ -53,7 +62,11 @@ export default function Formularios() {
                   />
                 </Grid>
                 <Grid item lg={12}>
-                  <h2>Incorporacion</h2>
+                <IncorporacionComp
+                    valuesInco={valuesInco}
+                    handleInputChangeInc={handleInputChangeInc}
+                    resetInc={resetInc}
+                  />
                 </Grid>
                 <Grid item lg={12}>
                   <h2>Referencia</h2>
