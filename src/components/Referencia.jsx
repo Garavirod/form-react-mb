@@ -5,31 +5,12 @@ import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeItem from "@material-ui/lab/TreeItem";
-import Select from "@material-ui/core/Select";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import MenuItem from "@material-ui/core/MenuItem";
-
-const rutas = [
-  "Linea 1",
-  "Linea 2",
-  "Linea 3",
-  "Linea 4",
-  "Linea 5",
-  "Linea 6",
-  "Linea 7",
-];
-
-const selectInputs = [
-  { tagname: "Ida", data: rutas },
-  { tagname: "Regreso", data: rutas },
-];
+import { getEstaciones, getReferencias } from "../helpers/DataGetters";
+import { Paper, Typography, Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
-    padding: 10,
+    flexGrow: 1,
   },
   bullet: {
     display: "inline-block",
@@ -49,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   divTree: {
-    //   background:'lime',
     maxHeight: 200,
   },
 
@@ -57,93 +37,62 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3),
     minWidth: 220,
   },
+
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
 }));
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+const renderTree = (nodes) => (
+  <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
+    {Array.isArray(nodes.children)
+      ? nodes.children.map((node) => renderTree(node))
+      : null}
+  </TreeItem>
+);
 
 export default function Referencia() {
+  const referencias = getReferencias();
   const classes = useStyles();
-  const [personName, setPersonName] = React.useState([]);
-
-  const handleChange = (event) => {
-    setPersonName(event.target.value);
-  };
 
   return (
-    <Grid container spacing={3}>
-      <Grid item lg={12}>        
-        <Grid container spacing={3}>
-          <Grid item lg={6}>
-            <div className={classes.divTree} style={{ overflow: "scroll" }}>
-              <TreeView
-                className={classes.viewRoot}
-                defaultCollapseIcon={<ExpandMoreIcon />}
-                defaultExpandIcon={<ChevronRightIcon />}
-              >
-                <TreeItem nodeId="1" label="Applications">
-                  <TreeItem nodeId="2" label="Calendar" />
-                  <TreeItem nodeId="3" label="Chrome" />
-                  <TreeItem nodeId="4" label="Webstorm" />
-                  <TreeItem nodeId="2" label="Calendar" />
-                  <TreeItem nodeId="3" label="Chrome" />
-                  <TreeItem nodeId="4" label="Webstorm" />
-                  <TreeItem nodeId="2" label="Calendar" />
-                  <TreeItem nodeId="3" label="Chrome" />
-                  <TreeItem nodeId="4" label="Webstorm" />
-                  <TreeItem nodeId="2" label="Calendar" />
-                  <TreeItem nodeId="3" label="Chrome" />
-                  <TreeItem nodeId="4" label="Webstorm" />
-                  <TreeItem nodeId="2" label="Calendar" />
-                  <TreeItem nodeId="3" label="Chrome" />
-                  <TreeItem nodeId="4" label="Webstorm" />
-                </TreeItem>
-                <TreeItem nodeId="5" label="Documents">
-                  <TreeItem nodeId="10" label="OSS" />
-                  <TreeItem nodeId="6" label="Material-UI">
-                    <TreeItem nodeId="7" label="src">
-                      <TreeItem nodeId="8" label="index.js" />
-                      <TreeItem nodeId="9" label="tree-view.js" />
-                    </TreeItem>
-                  </TreeItem>
-                </TreeItem>
-              </TreeView>
-            </div>
-          </Grid>
-          {selectInputs.map((tag) => (
-            <Grid item lg={3}>
-              <FormControl key={tag.tagname} className={classes.formControl}>
-                <InputLabel id="demo-mutiple-name-label">
-                  {tag.tagname}
-                </InputLabel>
-                <Select
-                  labelId="demo-mutiple-name-label"
-                  id="demo-mutiple-name"
-                  multiple
-                  value={personName}
-                  onChange={handleChange}
-                  input={<Input />}
-                  MenuProps={MenuProps}
-                >
-                  {tag.data.map((d) => (
-                    <MenuItem key={d} value={d}>
-                      {d}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+    <Container className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item lg={12}>
+          <Grid container spacing={3}>
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <Paper className={classes.paper} variant="outlined">
+                <Typography variant="h6" component="h4">
+                  Referencia
+                </Typography>
+              </Paper>
             </Grid>
-          ))}
+            <Grid item lg={6}>
+              <div className={classes.divTree} style={{ overflow: "scroll" }}>
+                <TreeView
+                  className={classes.viewRoot}
+                  defaultCollapseIcon={<ExpandMoreIcon />}
+                  defaultExpandIcon={<ChevronRightIcon />}
+                >
+                  {
+                    referencias.map((ref)=>(
+                      <TreeItem key={ref.id} nodeId={ref.id} label={ref.name}>
+                        {
+                          ref.rutas.map((it)=>(
+                            <TreeItem key={it} nodeId={it.id} label={it.name} />                        
+                          ))
+                        }
+                      </TreeItem>
+                    ))
+                  }                  
+                </TreeView>
+              </div>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </Container>
   );
 }

@@ -14,6 +14,7 @@ import { useForm } from "../hooks/useForm";
 import { DesincorporacionComp } from "./DesincorporacionComp";
 import { IncorporacionComp } from "./IncorporacionComp";
 import { ModelDesincorporacion, ModelIncorporacion } from "../models/ModelsIncorporacion";
+import Referencia from "./Referencia";
 
 const useStyles = makeStyles((theme) => ({
   conatiner: {
@@ -28,10 +29,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Formularios() {
   const classes = useStyles();
 
+  // Modelo y estructura de una Desincorporación
   const [valuesDes, handleInputChangeDes, resetDes] = useForm(
     ModelDesincorporacion
   );
 
+  // Modelo y estructura de una Incorporación
   const [valuesInco, handleInputChangeInc, resetInc] = useForm(
     ModelIncorporacion
   );
@@ -62,14 +65,14 @@ export default function Formularios() {
                   />
                 </Grid>
                 <Grid item lg={12}>
+                  <Referencia/>
+                </Grid>
+                <Grid item lg={12}>
                 <IncorporacionComp
                     valuesInco={valuesInco}
                     handleInputChangeInc={handleInputChangeInc}
                     resetInc={resetInc}
                   />
-                </Grid>
-                <Grid item lg={12}>
-                  <h2>Referencia</h2>
                 </Grid>
               </CardContent>
               <CardActions>

@@ -10,7 +10,13 @@ import {
   TextField,
   Container,
 } from "@material-ui/core";
-import { getFolios } from "../helpers/DataGetters";
+import {   
+  getSentido, 
+  getInfromantes,
+  getEstaciones,
+  getEconomicos,
+  getEmpresas
+ } from "../helpers/DataGetters";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +54,18 @@ export const IncorporacionComp = (props) => {
     status
   } = valuesInco;
 
-  const folios = getFolios();
+
+  // Datos de los inputs  
+  const sentidos = getSentido();
+  const entradas = ["En tiempo", "Retrazo"];
+  const statusset = ["Incorporacion", "Desincorporacion", "Remplazo"];
+  const informantes = getInfromantes();
+  const estaciones = getEstaciones();
+  const economicos = getEconomicos();
+  const empresas = getEmpresas();
+  
+
+
   return (
     <Container className={classes.root}>
       <Grid container spancing={3}>
@@ -62,7 +79,7 @@ export const IncorporacionComp = (props) => {
         <Grid item lg={3} md={6} sm={6} xs={12}>
           {/* SENTIDO */}
           <FormControl className={classes.formControl}>
-            <InputLabel>Folio</InputLabel>
+            <InputLabel>Sentido</InputLabel>
             <Select
               native
               value={sentido}
@@ -71,7 +88,7 @@ export const IncorporacionComp = (props) => {
                 name: "sentido",
               }}
             >
-              {folios.map((it) => (
+              {sentidos.map((it) => (
                 <option key={it} value={it}>
                   {it}
                 </option>
@@ -81,7 +98,7 @@ export const IncorporacionComp = (props) => {
         </Grid><Grid item lg={3} md={6} sm={6} xs={12}>
           {/* ENTRADA */}
           <FormControl className={classes.formControl}>
-            <InputLabel>Folio</InputLabel>
+            <InputLabel>Entrada</InputLabel>
             <Select
               native
               value={entrada}
@@ -90,7 +107,7 @@ export const IncorporacionComp = (props) => {
                 name: "entrada",
               }}
             >
-              {folios.map((it) => (
+              {entradas.map((it) => (
                 <option key={it} value={it}>
                   {it}
                 </option>
@@ -100,7 +117,7 @@ export const IncorporacionComp = (props) => {
         </Grid><Grid item lg={3} md={6} sm={6} xs={12}>
           {/* STATUS */}
           <FormControl className={classes.formControl}>
-            <InputLabel>Folio</InputLabel>
+            <InputLabel>Status</InputLabel>
             <Select
               native
               value={status}
@@ -109,7 +126,7 @@ export const IncorporacionComp = (props) => {
                 name: "status",
               }}
             >
-              {folios.map((it) => (
+              {statusset.map((it) => (
                 <option key={it} value={it}>
                   {it}
                 </option>
@@ -129,7 +146,7 @@ export const IncorporacionComp = (props) => {
                 name: "informa",
               }}
             >
-              {folios.map((it) => (
+              {informantes.map((it) => (
                 <option key={it} value={it}>
                   {it}
                 </option>
@@ -149,27 +166,7 @@ export const IncorporacionComp = (props) => {
                 name: "estacion",
               }}
             >
-              {folios.map((it) => (
-                <option key={it} value={it}>
-                  {it}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item lg={3} md={6} sm={6} xs={12}>
-          {/* ECONÓMICO */}
-          <FormControl className={classes.formControl}>
-            <InputLabel>Económico</InputLabel>
-            <Select
-              native
-              value={economico}
-              onChange={handleInputChangeInc}
-              inputProps={{
-                name: "economico",
-              }}
-            >
-              {folios.map((it) => (
+              {estaciones.map((it) => (
                 <option key={it} value={it}>
                   {it}
                 </option>
@@ -189,7 +186,27 @@ export const IncorporacionComp = (props) => {
                 name: "empresa",
               }}
             >
-              {folios.map((it) => (
+              {empresas.map((it) => (
+                <option key={it} value={it}>
+                  {it}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>        
+        <Grid item lg={3} md={6} sm={6} xs={12}>
+          {/* ECONÓMICO */}
+          <FormControl className={classes.formControl}>
+            <InputLabel>Económico</InputLabel>
+            <Select
+              native
+              value={economico}
+              onChange={handleInputChangeInc}
+              inputProps={{
+                name: "economico",
+              }}
+            >
+              {economicos.map((it) => (
                 <option key={it} value={it}>
                   {it}
                 </option>
@@ -214,7 +231,7 @@ export const IncorporacionComp = (props) => {
           <FormControl className={classes.formControl}>
             <TextField
               id="standard-required"
-              label="Credencial"
+              label="Conductor/Cred"
               name="credencial"
               value={credencial}
               onChange={handleInputChangeInc}
