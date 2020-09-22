@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
   },
 }));
@@ -36,9 +36,8 @@ export const DesincorporacionComp = (props) => {
   const classes = useStyles();
   const { valuesDes, handleInputChangeDes } = props;
 
-    // desestructurando el values del hook
+  // desestructurando el values del hook
   const {
-    folio,
     linea,
     solicita,
     informa,
@@ -54,7 +53,7 @@ export const DesincorporacionComp = (props) => {
     jornada,
     observaciones,
     tipo,
-    edoFolio
+    edoFolio,
   } = valuesDes;
 
   const folios = getFolios();
@@ -68,26 +67,6 @@ export const DesincorporacionComp = (props) => {
               Desincorporacion / Entrada
             </Typography>
           </Paper>
-        </Grid>
-        <Grid item lg={3} md={6} sm={6} xs={12}>
-          {/* FOLIO */}
-          <FormControl className={classes.formControl}>
-            <InputLabel>Folio</InputLabel>
-            <Select
-              native
-              value={folio}
-              onChange={handleInputChangeDes}
-              inputProps={{
-                name: "folio",
-              }}
-            >
-              {folios.map((it) => (
-                <option key={it} value={it}>
-                  {it}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
         </Grid>
         <Grid item lg={3} md={6} sm={6} xs={12}>
           {/* LINEA */}
@@ -324,7 +303,7 @@ export const DesincorporacionComp = (props) => {
         </Grid>
         <Grid item lg={6} xs={12}>
           {/* OBSERVACIONES */}
-          <FormControl fullWidth >
+          <FormControl fullWidth>
             <TextField
               id="outlined-multiline-static"
               onChange={handleInputChangeDes}
@@ -392,7 +371,7 @@ export const DesincorporacionComp = (props) => {
               />
             </RadioGroup>
           </FormControl>
-        </Grid>
+        </Grid>        
       </Grid>
     </Container>
   );

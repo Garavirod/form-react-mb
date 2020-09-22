@@ -5,8 +5,8 @@ import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeItem from "@material-ui/lab/TreeItem";
-import { getEstaciones, getReferencias } from "../helpers/DataGetters";
-import { Paper, Typography, Container, FormControl, InputLabel, Select } from "@material-ui/core";
+import { getReferencias } from "../helpers/DataGetters";
+import { Paper, Typography, Container, FormControl, InputLabel, Select, Input } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,13 +45,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const renderTree = (nodes) => (
-  <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
-    {Array.isArray(nodes.children)
-      ? nodes.children.map((node) => renderTree(node))
-      : null}
-  </TreeItem>
-);
+// const renderTree = (nodes) => (
+//   <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
+//     {Array.isArray(nodes.children)
+//       ? nodes.children.map((node) => renderTree(node))
+//       : null}
+//   </TreeItem>
+// );
 
 
 const direeciones = [
@@ -61,6 +61,16 @@ const direeciones = [
 ]
 
 export default function Referencia() {
+
+  const [value, setValue] = React.useState(30);
+  const handleBlur = () => {
+    if (value < 0) {
+      setValue(0);
+    } else if (value > 100) {
+      setValue(100);
+    }
+  };
+
   const referencias = getReferencias();
   const classes = useStyles();
 
@@ -137,6 +147,76 @@ export default function Referencia() {
                   }                  
                 </TreeView>
               </div>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid lg={12}>
+          <Grid container spacing={3}>
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <Paper className={classes.paper} variant="outlined">
+                <Typography variant="h6" component="h4">
+                  Incumplido /Cubierto
+                </Typography>
+              </Paper>
+            </Grid>
+            {/* VUELTAS */}
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <FormControl>
+                <InputLabel id="demo-mutiple-name-label">Vueltas</InputLabel>
+                <Input
+                  // className={classes.input}
+                  value={value}
+                  margin="dense"
+                  // onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    step: 10,
+                    min: 0,
+                    max: 100,
+                    type: "number",
+                    "aria-labelledby": "input-slider",
+                  }}
+                />
+              </FormControl>
+            </Grid>
+            {/* IDAS */}
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <FormControl>
+                <InputLabel id="demo-mutiple-name-label">Idas</InputLabel>
+                <Input
+                  // className={classes.input}
+                  value={value}
+                  margin="dense"
+                  // onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    step: 10,
+                    min: 0,
+                    max: 100,
+                    type: "number",
+                    "aria-labelledby": "input-slider",
+                  }}
+                />
+              </FormControl>
+            </Grid>
+            {/* REGRESOS */}
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <FormControl>
+                <InputLabel id="demo-mutiple-name-label">Regresos</InputLabel>
+                <Input
+                  value={value}
+                  margin="dense"
+                  // onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    step: 10,
+                    min: 0,
+                    max: 100,
+                    type: "number",
+                    "aria-labelledby": "input-slider",
+                  }}
+                />
+              </FormControl>
             </Grid>
           </Grid>
         </Grid>
