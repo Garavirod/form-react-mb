@@ -6,7 +6,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeItem from "@material-ui/lab/TreeItem";
 import { getEstaciones, getReferencias } from "../helpers/DataGetters";
-import { Paper, Typography, Container } from "@material-ui/core";
+import { Paper, Typography, Container, FormControl, InputLabel, Select } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +53,13 @@ const renderTree = (nodes) => (
   </TreeItem>
 );
 
+
+const direeciones = [
+  "El caminero - indios verdes",
+  "Indios verdes - El caminero",
+
+]
+
 export default function Referencia() {
   const referencias = getReferencias();
   const classes = useStyles();
@@ -69,7 +76,48 @@ export default function Referencia() {
                 </Typography>
               </Paper>
             </Grid>
-            <Grid item lg={6}>
+            {/* IDA */}
+            <Grid item lg={6} md={12} sm={12} xs={12}>
+              <FormControl>
+                <InputLabel>Ida</InputLabel>
+                <Select
+                  native
+                  inputProps={{
+                    name: "ida"
+                  }}
+                  >
+                  {
+                    direeciones.map((it) =>(
+                      <option key={it} value={it}>
+                  {it}
+                </option>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+            </Grid>
+            {/* REGRESO */}
+            <Grid item lg={6} md={12} sm={12} xs={12}>
+              <FormControl>
+                <InputLabel>Ida</InputLabel>
+                <Select
+                  native
+                  inputProps={{
+                    name: "regreso"
+                  }}
+                  >
+                  {
+                    direeciones.map((it) =>(
+                      <option key={it} value={it}>
+                  {it}
+                </option>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+            </Grid>
+            {/* ARBOL DE RUTAS */}
+            <Grid item lg={12}>
               <div className={classes.divTree} style={{ overflow: "scroll" }}>
                 <TreeView
                   className={classes.viewRoot}

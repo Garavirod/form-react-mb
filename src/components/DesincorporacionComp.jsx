@@ -322,7 +322,7 @@ export const DesincorporacionComp = (props) => {
             />
           </FormControl>
         </Grid>
-        <Grid item lg={8} xs={12}>
+        <Grid item lg={6} xs={12}>
           {/* OBSERVACIONES */}
           <FormControl fullWidth >
             <TextField
@@ -342,7 +342,7 @@ export const DesincorporacionComp = (props) => {
             />
           </FormControl>
         </Grid>
-        <Grid item lg={2} xs={6}>
+        <Grid item lg={3} xs={6}>
           {/* TIPO DESINCO*/}
           <FormControl className={classes.formControl}>
             <FormLabel>Tipo</FormLabel>
@@ -365,12 +365,12 @@ export const DesincorporacionComp = (props) => {
               <FormControlLabel
                 value="Afectación"
                 control={<Radio />}
-                label="Afectacións"
+                label="Afectación"
               />
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item lg={2} xs={6}>
+        <Grid item lg={3} xs={6}>
           {/* ESTADO FOLIO */}
           <FormControl className={classes.formControl}>
             <FormLabel>Estado de foilo</FormLabel>

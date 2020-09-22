@@ -13,7 +13,10 @@ import {
 import { useForm } from "../hooks/useForm";
 import { DesincorporacionComp } from "./DesincorporacionComp";
 import { IncorporacionComp } from "./IncorporacionComp";
-import { ModelDesincorporacion, ModelIncorporacion } from "../models/ModelsIncorporacion";
+import {
+  ModelDesincorporacion,
+  ModelIncorporacion,
+} from "../models/ModelsIncorporacion";
 import Referencia from "./Referencia";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,22 +60,24 @@ export default function Formularios() {
           <Grid item lg={12}>
             <form>
               <CardContent>
-                <Grid item lg={12}>
-                  <DesincorporacionComp
-                    valuesDes={valuesDes}
-                    handleInputChangeDes={handleInputChangeDes}
-                    resetDes={resetDes}
-                  />
-                </Grid>
-                <Grid item lg={12}>
-                  <Referencia/>
-                </Grid>
-                <Grid item lg={12}>
-                <IncorporacionComp
-                    valuesInco={valuesInco}
-                    handleInputChangeInc={handleInputChangeInc}
-                    resetInc={resetInc}
-                  />
+                <Grid container spacing={2}>
+                  <Grid item lg={6}>
+                    <DesincorporacionComp
+                      valuesDes={valuesDes}
+                      handleInputChangeDes={handleInputChangeDes}
+                      resetDes={resetDes}
+                    />
+                  </Grid>
+                  <Grid item lg={6}>
+                    <IncorporacionComp
+                      valuesInco={valuesInco}
+                      handleInputChangeInc={handleInputChangeInc}
+                      resetInc={resetInc}
+                    />
+                  </Grid>
+                  <Grid item lg={6}>
+                    <Referencia />
+                  </Grid>
                 </Grid>
               </CardContent>
               <CardActions>
