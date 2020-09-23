@@ -143,6 +143,33 @@ export const getEmpresas = () =>{
     return empresas;
 }
 
+export const getEstacionesbyRuta = (ruta) =>{
+    
+};
+
+
+
+export const getDistancias = (ruta) =>{
+
+    return [
+        {
+            idRuta: "A1",
+            tag_destino:"IV-DrGvz",
+            distancias_ida :[
+                0,
+
+            ],
+            distancias_reg: [
+
+            ]
+        },
+        {
+            
+        }
+    ]
+
+
+}
 
 export const getReferencias = () =>{
 
@@ -154,6 +181,7 @@ export const getReferencias = () =>{
                 {
                     id: "L11",
                     name : "01-101 A1",
+                    ida_destino: ["El caminero - IV", "Iv El"],
                     children: []
                 }, 
                 {
