@@ -85,47 +85,7 @@ export default function Referencia() {
                   Referencia
                 </Typography>
               </Paper>
-            </Grid>
-            {/* IDA */}
-            <Grid item lg={6} md={12} sm={12} xs={12}>
-              <FormControl>
-                <InputLabel>Ida</InputLabel>
-                <Select
-                  native
-                  inputProps={{
-                    name: "ida"
-                  }}
-                  >
-                  {
-                    direeciones.map((it) =>(
-                      <option key={it} value={it}>
-                  {it}
-                </option>
-                    ))
-                  }
-                </Select>
-              </FormControl>
-            </Grid>
-            {/* REGRESO */}
-            <Grid item lg={6} md={12} sm={12} xs={12}>
-              <FormControl>
-                <InputLabel>Ida</InputLabel>
-                <Select
-                  native
-                  inputProps={{
-                    name: "regreso"
-                  }}
-                  >
-                  {
-                    direeciones.map((it) =>(
-                      <option key={it} value={it}>
-                  {it}
-                </option>
-                    ))
-                  }
-                </Select>
-              </FormControl>
-            </Grid>
+            </Grid>           
             {/* ARBOL DE RUTAS */}
             <Grid item lg={12}>
               <div className={classes.divTree} style={{ overflow: "scroll" }}>
@@ -147,6 +107,46 @@ export default function Referencia() {
                   }                  
                 </TreeView>
               </div>
+            </Grid>
+             {/* IDA */}
+             <Grid item lg={6} md={12} sm={12} xs={12}>
+              <FormControl>
+                <InputLabel>Ida</InputLabel>
+                <Select
+                  native
+                  inputProps={{
+                    name: "ida"
+                  }}
+                  >
+                  {
+                    direeciones.map((it) =>(
+                      <option key={it} value={it}>
+                  {it}
+                </option>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+            </Grid>
+            {/* REGRESO */}
+            <Grid item lg={6} md={12} sm={12} xs={12}>
+              <FormControl>
+                <InputLabel>Vuelta</InputLabel>
+                <Select
+                  native
+                  inputProps={{
+                    name: "regreso"
+                  }}
+                  >
+                  {
+                    direeciones.map((it) =>(
+                      <option key={it} value={it}>
+                  {it}
+                </option>
+                    ))
+                  }
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
         </Grid>
