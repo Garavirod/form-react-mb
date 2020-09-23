@@ -150,7 +150,7 @@ export default function Referencia() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid lg={12}>
+        <Grid item lg={12}>
           <Grid container spacing={3}>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Paper className={classes.paper} variant="outlined">
@@ -216,6 +216,46 @@ export default function Referencia() {
                     "aria-labelledby": "input-slider",
                   }}
                 />
+              </FormControl>
+            </Grid>
+            {/* TRAMO DESDE */}
+            <Grid item lg={6} md={12} sm={12} xs={12}>
+              <FormControl>
+                <InputLabel>Desde</InputLabel>
+                <Select
+                  native
+                  inputProps={{
+                    name: "tramo_desde"
+                  }}
+                  >
+                  {
+                    direeciones.map((it) =>(
+                      <option key={it} value={it}>
+                  {it}
+                </option>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+            </Grid>
+            {/* TRAMO HASTA */}
+            <Grid item lg={6} md={12} sm={12} xs={12}>
+              <FormControl>
+                <InputLabel>Hasta</InputLabel>
+                <Select
+                  native
+                  inputProps={{
+                    name: "tramo_hasta"
+                  }}
+                  >
+                  {
+                    direeciones.map((it) =>(
+                      <option key={it} value={it}>
+                  {it}
+                </option>
+                    ))
+                  }
+                </Select>
               </FormControl>
             </Grid>
           </Grid>

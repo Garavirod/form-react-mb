@@ -18,6 +18,7 @@ import {
   ModelIncorporacion,
 } from "../models/ModelsIncorporacion";
 import Referencia from "./Referencia";
+import { TabListasComponent } from "./TabListas";
 
 const useStyles = makeStyles((theme) => ({
   conatiner: {
@@ -77,6 +78,9 @@ export default function Formularios() {
                   </Grid>
                   <Grid item lg={6}>
                     <Referencia />
+                  </Grid>
+                  <Grid item lg={6}>
+                    <TabListasComponent/>
                   </Grid>
                 </Grid>
               </CardContent>
